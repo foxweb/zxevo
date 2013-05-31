@@ -18,6 +18,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass-rails'
 end
 
 gem 'jquery-rails'
