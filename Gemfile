@@ -40,6 +40,7 @@ gem 'capistrano'
 
 gem 'puma', '>= 1.6.3'
 gem 'slim', '>= 2.0.0.pre.6'
+gem 'slim-rails'
 gem 'haml2slim', '>= 0.4.6', group: :development
 gem 'haml-rails', '>= 0.4', group: :development
 gem 'html2haml', '>= 1.0.1', group: :development
@@ -66,3 +67,5 @@ gem 'figaro', '>= 0.6.3'
 gem 'better_errors', '>= 0.7.2', group: :development
 gem 'binding_of_caller', '>= 0.7.1', group: :development, platforms: [:mri_19, :rbx]
 gem 'hub', '>= 1.10.2', require: nil, group: [:development]
+gem 'russian'
+gem 'awesome_print'

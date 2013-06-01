@@ -1,0 +1,20 @@
+ru:
+  activerecord:
+    models:
+      user: 'Пользователь'
+      post:
+        one: 'Пост'
+    attributes:
+      post:
+        id: '#'
+        title: 'Заголовок'
+        body: 'Тело'
+        user_id: 'Пользователь'
+        created_at: 'Дата создания'
+  helpers:
+    links:
+      cancel: 'Отмена'
+      new: 'Создать'
+      edit: 'Правка'
+      destroy: 'Удалить'
+      back: 'Назад'
