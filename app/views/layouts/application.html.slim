@@ -1,5 +1,5 @@
 doctype 5
-html(lang="en")
+html
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
@@ -15,20 +15,16 @@ html(lang="en")
     link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
     link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
     link(href="favicon.ico" rel="shortcut icon")
-
-
   body
-
     .container-fluid#root
-
-      .navbar.navbar-fluid-top
+      .navbar.navbar-fliud-top
         .navbar-inner
-          .container-fluid
-            a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+          .container
+            a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.brand(href="#") Сайт о компьютере ZX Evolution
+            a.brand href="#" Сайт о компьютере ZX Evolution
 
       .row-fluid
         .span3
@@ -48,8 +44,8 @@ html(lang="en")
 
     footer#footer
       .row-fluid
-        .span12
-          p &copy; foxweb 2013
+        .span9
+          .container &copy; foxweb 2013
     /!
       | Javascripts
       | \==================================================
