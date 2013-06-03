@@ -154,6 +154,8 @@ GEM
     less-rails (2.3.3)
       actionpack (>= 3.1)
       less (~> 2.3.1)
+    letter_opener (1.1.1)
+      launchy (~> 2.2)
     libv8 (3.11.8.17)
     listen (1.1.4)
       rb-fsevent (>= 0.9.3)
@@ -310,6 +312,7 @@ DEPENDENCIES
   jquery-rails
   launchy (>= 2.2.0)
   less-rails
+  letter_opener
   puma (>= 1.6.3)
   quiet_assets (>= 1.0.2)
   rails (= 3.2.13)

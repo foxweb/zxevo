@@ -1,20 +1,45 @@
 ru:
   activerecord:
     models:
-      user: 'Пользователь'
+      user: Пользователь
       post:
-        one: 'Пост'
+        one: Пост
+        many: Посты
     attributes:
       post:
         id: '#'
-        title: 'Заголовок'
-        body: 'Тело'
-        user_id: 'Пользователь'
-        created_at: 'Дата создания'
+        title: Заголовок
+        body: Тело
+        user_id: Пользователь
+        created_at: Дата создания
+      user:
+        email: E-mail
+        password: Пароль
+        remember_me: Запомнить меня
+        password_confirmation: Подтвердите пароль
+        current_password: Текущий пароль
+        reset_password_token: Ключ восстановления
   helpers:
+    actions: Действия
     links:
-      cancel: 'Отмена'
-      new: 'Создать'
-      edit: 'Правка'
-      destroy: 'Удалить'
-      back: 'Назад'
+      cancel: Отмена
+      new: Создать
+      edit: Правка
+      destroy: Удалить
+      back: Назад
+      update: Обновить
+      save: Сохранить
+      confirm: Вы уверены?
+    titles:
+      edit: Редактирование
+      save: Сохранить
+      new: Создать
+      delete: Удалить
+  simple_form:
+    "yes": 'Да'
+    "no": 'Нет'
+    required:
+      text: 'обязательное поле'
+      mark: '*'
+    error_notification: 
+      default_message: 'У нас проблемы:'

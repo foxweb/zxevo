@@ -1,12 +1,12 @@
 - model_class = Post
 .page-header
-  %h1= @post.title
+  h1= @post.title
 
-%p
+p
   = @post.body
-%p
-  %strong= model_class.human_attribute_name(:user_id) + ':'
-  %br
+p
+  strong= model_class.human_attribute_name(:user_id) + ':'
+  br
   = @post.user.email
 
 .form-actions
