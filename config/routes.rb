@@ -1,5 +1,8 @@
 Zxevo::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   devise_for :users
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
   devise_scope :user do
     get 'login',  to: 'devise/sessions#new'

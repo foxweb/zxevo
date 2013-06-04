@@ -14,9 +14,9 @@ gem 'rolify', '>= 3.2.0'
 gem 'simple_form', '>= 2.1.0'
 gem 'figaro', '>= 0.6.3'
 gem 'russian'
-# gem 'bcrypt-ruby', '~> 3.0.0'
-# gem 'debugger'
-
+gem 'rails_admin'
+gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'debugger'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -47,10 +47,12 @@ group :development do
   gem 'better_errors', '>= 0.7.2'
   gem 'hub', '>= 1.10.2', require: false
   gem 'binding_of_caller', '>= 0.7.1', platforms: [:mri_19, :rbx]
+  gem 'colorize'
 end
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'jazz_hands'
   gem 'rspec-rails', '>= 2.12.2'
   gem 'factory_girl_rails', '>= 4.2.0'
 end

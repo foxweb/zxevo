@@ -1,24 +1,45 @@
 ru:
+  posts:
+    index:
+      title: Посты
+  
   activerecord:
     models:
-      user: Пользователь
+      user:
+        one: Пользователь
+        few: Пользователи
+        many: Пользователи
+        other: Пользователи
       post:
         one: Пост
+        few: Посты
         many: Посты
+        other: Посты
     attributes:
       post:
         id: '#'
         title: Заголовок
         body: Тело
         user_id: Пользователь
+        user: Пользователь
         created_at: Дата создания
       user:
+        id: '#'
         email: E-mail
         password: Пароль
         remember_me: Запомнить меня
         password_confirmation: Подтвердите пароль
         current_password: Текущий пароль
         reset_password_token: Ключ восстановления
+        reset_password_sent_at: Сброс пароля
+        remember_created_at: Напоминание пароля
+        sign_in_count: Число входов
+        current_sign_in_at: Текущий вход
+        last_sign_in_at: Последний вход
+        current_sign_in_ip: Текущий IP входа
+        last_sign_in_ip: Последний IP входа
+        created_at: Создано
+        updated_at: Обновлено
   helpers:
     actions: Действия
     links:

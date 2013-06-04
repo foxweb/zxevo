@@ -16,17 +16,17 @@ html
     link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
     link(href="favicon.ico" rel="shortcut icon")
   body
-    .container-fluid#root
-      .navbar.navbar-fliud-top
+    .container#root
+      .navbar.navbar-fixed-top
         .navbar-inner
-          .container
+          .container-fluid
             a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
               span.icon-bar
               span.icon-bar
               span.icon-bar
             a.brand href="#" Сайт о компьютере ZX Evolution
 
-      .row-fluid
+      .row
         .span3
           .well.sidebar-nav
             ul.nav.nav-list
@@ -43,9 +43,10 @@ html
       #root_footer
 
     footer#footer
-      .row-fluid
-        .span9
-          .container &copy; foxweb 2013
+      .container
+        .row
+          .span9
+            .container &copy; foxweb 2013
     /!
       | Javascripts
       | \==================================================
