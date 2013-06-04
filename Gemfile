@@ -15,6 +15,7 @@ gem 'simple_form', '>= 2.1.0'
 gem 'figaro', '>= 0.6.3'
 gem 'russian'
 gem 'rails_admin'
+gem 'high_voltage'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'debugger'
 

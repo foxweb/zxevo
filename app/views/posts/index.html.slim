@@ -1,19 +1,9 @@
-- model_class = Post
-.page-header
-  h1=t '.title'
-table.table.table-striped
-  thead
-    tr
-      th= model_class.human_attribute_name(:id)
-      th= model_class.human_attribute_name(:title)
-      th= model_class.human_attribute_name(:body)
-      th= model_class.human_attribute_name(:user_id)
-      th= model_class.human_attribute_name(:created_at)
-  tbody
-    - @posts.each do |post|
-      tr
-        td= link_to post.id, post_path(post)
-        td= post.title
-        td= post.body
-        td= post.user.email
-        td=l post.created_at
+h1=t '.title'
+
+- @posts.each do |post|
+  div.post
+    h2= post.title
+    div=l post.created_at
+    div= post.body
+    div= post.user.email
+    hr

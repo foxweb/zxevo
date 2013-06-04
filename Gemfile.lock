@@ -150,6 +150,7 @@ GEM
       haml (>= 3.0)
       nokogiri
       ruby_parser
+    high_voltage (1.2.2)
     highline (1.6.19)
     hike (1.2.2)
     hirb (0.7.1)
@@ -392,6 +393,7 @@ DEPENDENCIES
   guard-rspec (>= 2.5.2)
   haml-rails (>= 0.4)
   haml2slim (>= 0.4.6)
+  high_voltage
   html2haml (>= 1.0.1)
   hub (>= 1.10.2)
   jazz_hands

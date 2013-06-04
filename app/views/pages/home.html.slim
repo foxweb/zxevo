@@ -1,7 +1,20 @@
 h1 Привет, земляне!
 p Уважаемые посетители, Вы попали на сайт группы NedoPC.
 
-= render partial: 'carousel'
+#myCarousel.carousel.slide
+  ol.carousel-indicators
+    li.active data-slide-to="0" data-target="#myCarousel" 
+    li data-slide-to="1" data-target="#myCarousel" 
+    li data-slide-to="2" data-target="#myCarousel" 
+  /! Carousel items
+  .carousel-inner
+    .active.item …
+    .item …
+    .item …
+  /! Carousel nav
+  a.carousel-control.left data-slide="prev" href="#myCarousel"  &lsaquo;
+  a.carousel-control.right data-slide="next" href="#myCarousel"  &rsaquo;
+
 
 p Что такое NedoPC? Это команда профессиональных разработчиков и любителей, объединенных идеями свободного творчества. Наш сайт можно назвать виртуальным Исследовательским Центром. Но за всеми направлениями наших интересов стоят вполне конкретные люди. Нас объединяет тяга к нестандартным или альтернативным направлениям применения наших знаний и умений. Также нас объединяет любовь к ретро-компьютерам. На их примере мы показываем азы схематической композиции и отладки, основ цифровой и аналоговой техники, а также экстремального и рационального программирования
 

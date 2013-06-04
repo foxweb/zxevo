@@ -1,8 +1,8 @@
 ru:
+  # controller/action/title
   posts:
     index:
-      title: Посты
-  
+      title: Блог
   activerecord:
     models:
       user:

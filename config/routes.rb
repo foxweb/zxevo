@@ -12,6 +12,8 @@ Zxevo::Application.routes.draw do
 
   get 'blog', to: 'posts#index'
   resources :posts
-
-  root to: 'home#index'
+  
+  get '/:id' => 'high_voltage/pages#show', :as => :static, :via => :get
+  root to: 'high_voltage/pages#show', id: 'home'
+  # root to: 'home#index'
 end
