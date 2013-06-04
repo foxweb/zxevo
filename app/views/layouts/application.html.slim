@@ -17,14 +17,14 @@ html
     link(href="favicon.ico" rel="shortcut icon")
   body
     .container#root
-      .navbar.navbar-fixed-top
+      .navbar.navbar-top
         .navbar-inner
           .container-fluid
             a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.brand href="#" Сайт о компьютере ZX Evolution
+            a.brand href="/" Сайт о компьютере ZX Evolution
 
       .row
         .span3
@@ -51,4 +51,4 @@ html
       | Javascripts
       | \==================================================
     /! Placed at the end of the document so the pages load faster
-    = javascript_include_tag "application", debug: false
+    = javascript_include_tag "application"
