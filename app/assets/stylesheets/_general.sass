@@ -1,3 +1,14 @@
-@import "compass/layout/sticky-footer"
+@import compass/layout/sticky-footer
 
 +sticky-footer(30px)
+
+@import compass/css3, compass/utilities
+
+$carousel-radius: 6px
+
+.carousel img
+  +border-radius($carousel-radius)
+
+.carousel .carousel-caption
+  +border-corner-radius(bottom, left, $carousel-radius)
+  +border-corner-radius(bottom, right, $carousel-radius)

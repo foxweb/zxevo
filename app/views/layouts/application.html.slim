@@ -4,26 +4,23 @@ html
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="apple-mobile-web-app-capable" content="yes")
     title= content_for?(:title) ? yield(:title) : "Сайт о компьютере ZX Evolution"
     = csrf_meta_tags
     /! Le HTML5 shim, for IE6-8 support of HTML elements
     /![if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", media: "all"
-    link(href="images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
-    link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
-    link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
-    link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
-    link(href="favicon.ico" rel="shortcut icon")
+    link(href="/images/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144")
+    link(href="/images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
+    link(href="/images/apple-touch-icon-72x72.png"   rel="apple-touch-icon" sizes="72x72")
+    link(href="/images/apple-touch-icon.png"         rel="apple-touch-icon")
+    link(href="/favicon.png" rel="shortcut icon")
   body
     .container#root
       .navbar.navbar-top
         .navbar-inner
-          .container-fluid
-            a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
+          .container
             a.brand href="/" Сайт о компьютере ZX Evolution
 
       .row
@@ -46,7 +43,11 @@ html
       .container
         .row
           .span9
-            .container &copy; foxweb 2013
+            .container
+             | &copy; Сайт сделал 
+             a href="http://kurein.com" foxweb
+             |  в 2013 году
+              
     /!
       | Javascripts
       | \==================================================
