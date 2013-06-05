@@ -28,11 +28,30 @@ html
           .well.sidebar-nav
             ul.nav.nav-list
               li.nav-header Что тут есть?
-              li= link_to "Блог", "/blog"
-              li= link_to "Проекты", "/projects"
-              li= link_to "Инструкции", "/manuals"
-              li= link_to "Люди", "/people"
-              li= link_to "Разное", "/about"
+              li
+                a href="/"
+                  i.icon-home
+                  |  Старт
+              li
+                a href="/blog"
+                  i.icon-list
+                  |  Блог
+              li
+                a href="/projects"
+                  i.icon-folder-open
+                  |  Проекты
+              li
+                a href="/manuals"
+                  i.icon-file
+                  |  Инструкции
+              li
+                a href="/people"
+                  i.icon-user
+                  |  Люди
+              li
+                a href="/about"
+                  i.icon-trash
+                  |  Разное
         .span9
           = bootstrap_flash
           = yield
@@ -45,7 +64,7 @@ html
           .span9
             .container
              | &copy; Сайт сделал 
-             a href="http://kurein.com" foxweb
+             a href="http://kurepin.com" foxweb
              |  в 2013 году
               
     /!

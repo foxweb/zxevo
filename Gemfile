@@ -52,7 +52,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'awesome_print'
   gem 'jazz_hands'
   gem 'rspec-rails', '>= 2.12.2'
   gem 'factory_girl_rails', '>= 4.2.0'

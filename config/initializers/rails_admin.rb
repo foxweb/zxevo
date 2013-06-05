@@ -2,20 +2,27 @@
 # See github.com/sferik/rails_admin for more informations
 
 RailsAdmin.config do |config|
-
+  
+  ADMIN_EMAILS= ['lesha@kurepin.com', 'a.kurepin@gmail.com']
 
   ################  Global configuration  ################
 
   # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = ['Zxevo', 'Admin']
+  config.main_app_name = ['ZX Evolution', 'Панель управления']
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_user } # auto-generated
+  config.authorize_with do
+    is_admin = ADMIN_EMAILS.include?(current_user.email) 
+    if current_user
+        redirect_to main_app.new_user_session_url unless is_admin 
+    end
+  end
 
   # If you want to track changes on your models:
-  # config.audit_with :history, 'User'
+  config.audit_with :history, 'User'
 
   # Or with a PaperTrail: (you need to install it first)
   # config.audit_with :paper_trail, 'User'

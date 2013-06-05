@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604080027) do
+ActiveRecord::Schema.define(:version => 20130605155422) do
+
+  create_table "pages", :force => true do |t|
+    t.string   "title",      :default => "", :null => false
+    t.string   "slug",       :default => "", :null => false
+    t.text     "body",       :default => "", :null => false
+    t.integer  "user_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "pages", ["user_id"], :name => "index_pages_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.string   "title"
@@ -49,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20130604080027) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "name",                   :default => "", :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -15,6 +15,9 @@ ru:
         few: Посты
         many: Посты
         other: Посты
+      page:
+        one: Страница
+        other: Страницы
     attributes:
       post:
         id: '#'
@@ -25,6 +28,7 @@ ru:
         created_at: Дата создания
       user:
         id: '#'
+        name: Имя
         email: E-mail
         password: Пароль
         remember_me: Запомнить меня
@@ -32,12 +36,21 @@ ru:
         current_password: Текущий пароль
         reset_password_token: Ключ восстановления
         reset_password_sent_at: Сброс пароля
-        remember_created_at: Напоминание пароля
+        remember_created_at: Запоминание пароля
         sign_in_count: Число входов
         current_sign_in_at: Текущий вход
         last_sign_in_at: Последний вход
         current_sign_in_ip: Текущий IP входа
         last_sign_in_ip: Последний IP входа
+        created_at: Создано
+        updated_at: Обновлено
+      page:
+        id: '#'
+        title: Заголовок
+        slug: URL
+        body: Текст страницы
+        user: Пользователь
+        user_id: Пользователь
         created_at: Создано
         updated_at: Обновлено
   helpers:

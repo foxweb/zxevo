@@ -369,7 +369,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_print
   bcrypt-ruby (~> 3.0.0)
   better_errors (>= 0.7.2)
   binding_of_caller (>= 0.7.1)
