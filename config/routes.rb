@@ -1,5 +1,6 @@
 Zxevo::Application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  
+  mount Ckeditor::Engine => '/ckeditor'
 
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -13,6 +14,7 @@ Zxevo::Application.routes.draw do
   get 'blog', to: 'posts#index'
   resources :posts
   root to: 'home#index', as: :static, via: :get
+  
   get '/:slug' => 'pages#show', slug: :slug
   
   # get '/:id' => 'high_voltage/pages#show', as: :static, via: :get

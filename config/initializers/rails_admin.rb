@@ -3,7 +3,7 @@
 
 RailsAdmin.config do |config|
   
-  ADMIN_EMAILS= ['lesha@kurepin.com', 'a.kurepin@gmail.com']
+  ADMIN_EMAILS= ['lesha@kurepin.com', 'a.kurepin@gmail.com', '7@7vn.ru']
 
   ################  Global configuration  ################
 
@@ -18,6 +18,25 @@ RailsAdmin.config do |config|
     is_admin = ADMIN_EMAILS.include?(current_user.email) 
     if current_user
         redirect_to main_app.new_user_session_url unless is_admin 
+    end
+  end
+  
+  config.model Post do
+    edit do
+      field :title
+      field :body, :text do
+        ckeditor true
+      end
+    end
+  end
+  
+  config.model Page do
+    edit do
+      field :slug
+      field :title
+      field :body, :text do
+        ckeditor true
+      end
     end
   end
 
