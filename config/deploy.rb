@@ -5,7 +5,7 @@ set :application, 'zxevo'
 
 set :user, 'foxweb'
 set :use_sudo, false
-set :deploy_to, "/home/foxweb/work/deploy/#{application}"
+set :deploy_to, "/home/foxweb/www/#{application}"
 set :deploy_via, :remote_cache
 
 role :web, 'rediron.ru'
@@ -36,8 +36,14 @@ namespace :deploy do
     run "cd #{release_path}; bundle exec rake assets:precompile RAILS_ENV=production"
   end
 
-  task :start do ; end
-  task :stop do ; end
+  task :start do
+    run "bundle exec pumactl -S #{deploy_to}/shared/tmp/puma.state start"
+  end
+  
+  task :stop do
+    run "bundle exec pumactl -S #{deploy_to}/shared/tmp/puma.state stop"
+  end
+
   task :restart, roles: :app, except: { no_release: true } do
     run "bundle exec pumactl -S #{deploy_to}/shared/tmp/puma.state restart"
   end
