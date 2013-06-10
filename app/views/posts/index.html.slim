@@ -1,0 +1,9 @@
+h1=t '.title'
+
+- @posts.each do |post|
+  div.post
+    h2= post.title
+    div= Russian::strftime(post.created_at, '%d %b %Y %H:%M')
+    div== post.body
+    div= post.user.email
+    hr

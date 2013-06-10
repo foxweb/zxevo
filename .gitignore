@@ -16,7 +16,6 @@
 /vendor/ruby/
 
 # minimal Rails specific artifacts
-db/*.sqlite3
 /log/*
 /tmp/*
 
@@ -32,7 +31,6 @@ db/*.sqlite3
 /coverage.data
 /coverage/
 /db/*.javadb/
-/db/*.sqlite3
 /doc/api/
 /doc/app/
 /doc/features.html

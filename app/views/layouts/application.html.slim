@@ -1,0 +1,74 @@
+doctype 5
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="apple-mobile-web-app-capable" content="yes")
+    title= content_for?(:title) ? yield(:title) : "Сайт о компьютере ZX Evolution"
+    = csrf_meta_tags
+    /! Le HTML5 shim, for IE6-8 support of HTML elements
+    /![if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag "application", media: "all"
+    link(href="/images/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144")
+    link(href="/images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
+    link(href="/images/apple-touch-icon-72x72.png"   rel="apple-touch-icon" sizes="72x72")
+    link(href="/images/apple-touch-icon.png"         rel="apple-touch-icon")
+    link(href="/favicon.png" rel="shortcut icon")
+  body
+    .container#root
+      .navbar.navbar-top
+        .navbar-inner
+          .container
+            a.brand href="/" Сайт о компьютере ZX Evolution
+
+      .row
+        .span3
+          .well.sidebar-nav
+            ul.nav.nav-list
+              li.nav-header Что тут есть?
+              li
+                a href="/"
+                  i.icon-home
+                  |  Старт
+              li
+                a href="/blog"
+                  i.icon-list
+                  |  Блог
+              li
+                a href="/projects"
+                  i.icon-folder-open
+                  |  Проекты
+              li
+                a href="/manuals"
+                  i.icon-file
+                  |  Инструкции
+              li
+                a href="/people"
+                  i.icon-user
+                  |  Люди
+              li
+                a href="/about"
+                  i.icon-trash
+                  |  Разное
+        .span9
+          = bootstrap_flash
+          = yield
+
+      #root_footer
+
+    footer#footer
+      .container
+        .row
+          .span9
+            .container
+             | &copy; Сайт сделал 
+             a href="http://kurepin.com" foxweb
+             |  в 2013 году
+              
+    /!
+      | Javascripts
+      | \==================================================
+    /! Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
