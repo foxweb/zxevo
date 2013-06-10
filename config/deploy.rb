@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require 'bundler/capistrano'
 require 'puma/capistrano'
 require 'capistrano-rbenv'
 set :rbenv_ruby_version, '2.0.0-p195'
