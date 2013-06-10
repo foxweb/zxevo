@@ -416,6 +416,7 @@ DEPENDENCIES
   jazz_hands
   jquery-rails
   launchy (>= 2.2.0)
+  less
   less-rails
   letter_opener
   mini_magick
