@@ -24,6 +24,7 @@ set :scm, :git
 set :repository,  'git@github.com:foxweb/zxevo.git'
 set :git_enable_submodules, 1
 set :branch, 'master'
+set :keep_releases, 2
 
 ssh_options[:forward_agent] = true
 
@@ -40,10 +41,6 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/log #{release_path}/log"
     run "ln -nfs #{shared_path}/tmp/sockets #{release_path}/tmp/sockets"
     run "ln -nfs #{shared_path}/db #{release_path}/db/sqlite"
-  end
-
-  task :precompile_assets do
-    run "cd #{release_path}; bundle exec rake assets:precompile RAILS_ENV=production"
   end
 
   desc "Start the application"
