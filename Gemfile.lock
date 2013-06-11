@@ -203,6 +203,9 @@ GEM
     less-rails (2.3.3)
       actionpack (>= 3.1)
       less (~> 2.3.1)
+    less-rails-fontawesome (0.4.4)
+      less-rails (>= 2.1.7)
+      railties (>= 3.1.1)
     letter_opener (1.1.1)
       launchy (~> 2.2)
     libv8 (3.11.8.17)
@@ -418,6 +421,7 @@ DEPENDENCIES
   launchy (>= 2.2.0)
   less
   less-rails
+  less-rails-fontawesome
   letter_opener
   mini_magick
   puma (>= 1.6.3)

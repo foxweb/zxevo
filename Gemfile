@@ -32,6 +32,7 @@ group :assets do
   gem 'therubyracer'
   gem 'less'
   gem 'less-rails'
+  gem 'less-rails-fontawesome'
   gem 'execjs'
   gem 'uglifier', '>= 1.0.3'
   gem 'compass-rails'
