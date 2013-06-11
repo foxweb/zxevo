@@ -25,6 +25,7 @@ set :repository,  'git@github.com:foxweb/zxevo.git'
 set :git_enable_submodules, 1
 set :branch, 'master'
 set :keep_releases, 2
+after "deploy:restart", "deploy:cleanup" 
 
 ssh_options[:forward_agent] = true
 
@@ -36,11 +37,12 @@ namespace :deploy do
   task :finalize_update do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/settings.local.yml #{release_path}/config/settings.local.yml"
-    run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
     run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
     run "ln -nfs #{shared_path}/log #{release_path}/log"
     run "ln -nfs #{shared_path}/tmp/sockets #{release_path}/tmp/sockets"
     run "ln -nfs #{shared_path}/db #{release_path}/db/sqlite"
+    run "rm -rf  #{release_path}/public"
+    run "ln -nfs #{shared_path}/public #{release_path}/public"
   end
 
   desc "Start the application"
