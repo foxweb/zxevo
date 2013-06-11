@@ -27,6 +27,7 @@ RailsAdmin.config do |config|
       field :body, :text do
         ckeditor true
       end
+      field :user
     end
   end
   
@@ -37,6 +38,7 @@ RailsAdmin.config do |config|
       field :body, :text do
         ckeditor true
       end
+      field :user
     end
   end
 
