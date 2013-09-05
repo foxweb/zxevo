@@ -11,6 +11,7 @@ Bluepill.application 'dev', log_file: "#{root_path}/log/bluepill.log" do |app|
     
     process.pid_file = "#{root_path}/tmp/puma.pid"
     process.daemonize = true
+    process.stdout = process.stderr = "#{root_path}/log/puma.log"
     
     process.start_grace_time    = 5.seconds
     process.stop_grace_time     = 10.seconds

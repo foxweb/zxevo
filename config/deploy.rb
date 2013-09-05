@@ -16,7 +16,7 @@ set :deploy_to, '/home/foxweb/www/zxevo'
 set :app_path, "#{deploy_to}/#{current_path}"
 
 set :repository, 'git@github.com:foxweb/zxevo.git'
-set :branch, 'master'
+set :branch, 'develop'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
