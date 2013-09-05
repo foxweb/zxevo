@@ -37,6 +37,11 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bluepill (0.0.66)
+      activesupport (>= 3.0.0, < 4.0.0)
+      daemons (~> 1.1.4)
+      i18n (>= 0.5.0)
+      state_machine (~> 1.1)
     bootstrap-sass (2.3.1.3)
       sass (~> 3.2)
     builder (3.0.4)
@@ -93,6 +98,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
+    daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     debugger (1.6.0)
@@ -219,6 +225,9 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
+    mina (0.3.0)
+      open4
+      rake
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     mini_portile (0.5.0)
@@ -233,6 +242,7 @@ GEM
       net-ssh (>= 2.6.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    open4 (1.3.0)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
@@ -359,6 +369,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
+    state_machine (1.2.0)
     subexec (0.2.3)
     temple (0.6.5)
     therubyracer (0.11.4)
@@ -394,6 +405,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   better_errors (>= 0.7.2)
   binding_of_caller (>= 0.7.1)
+  bluepill
   cancan (>= 1.6.9)
   capistrano
   capistrano-rbenv
@@ -426,6 +438,7 @@ DEPENDENCIES
   less-rails
   less-rails-fontawesome
   letter_opener
+  mina
   mini_magick
   puma (>= 1.6.3)
   quiet_assets (>= 1.0.2)

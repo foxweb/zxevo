@@ -1,67 +1,85 @@
-# encoding: utf-8
+require 'mina/bundler'
+# require 'mina/rails'
+require 'mina/git'
+require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
+# require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
-require 'bundler/capistrano'
-require 'puma/capistrano'
-require 'capistrano-rbenv'
-set :rbenv_ruby_version, '2.0.0-p195'
+# Basic settings:
+#   domain       - The hostname to SSH to.
+#   deploy_to    - Path to deploy into.
+#   repository   - Git repo to clone from. (needed by mina/git)
+#   branch       - Branch name to deploy. (needed by mina/git)
 
-default_run_options[:pty] = true
-
-set :application, 'zxevo'
-
+set :domain, '37.139.12.234'
 set :user, 'foxweb'
-set :use_sudo, false
-set :deploy_to, "/home/foxweb/www/#{application}"
-set :deploy_via, :remote_cache
-set :shared_children, shared_children << 'tmp/sockets'
-set :stage, 'production'
+set :deploy_to, '/home/foxweb/www/zxevo'
+set :app_path, "#{deploy_to}/#{current_path}"
 
-role :web, 'rediron.ru'
-role :app, 'rediron.ru'
-role :db,  'rediron.ru', primary: true
-
-set :scm, :git
-set :repository,  'git@github.com:foxweb/zxevo.git'
-set :git_enable_submodules, 1
+set :repository, 'git@github.com:foxweb/zxevo.git'
 set :branch, 'master'
-set :keep_releases, 2
-after "deploy:restart", "deploy:cleanup" 
 
-ssh_options[:forward_agent] = true
+# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
+# They will be linked in the 'deploy:link_shared_paths' step.
+set :shared_paths, ['config/database.yml', 'log', 'tmp']
 
-namespace :deploy do
-  task :bundle_gems do
-    run "cd #{deploy_to}/current && bundle install --deployment"
-  end
+# This task is the environment that is loaded for most commands, such as
+# `mina deploy` or `mina rake`.
+task :environment do
+  # If you're using rbenv, use this to load the rbenv environment.
+  # Be sure to commit your .rbenv-version to your repository.
+  invoke :'rbenv:load'
 
-  task :finalize_update do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/settings.local.yml #{release_path}/config/settings.local.yml"
-    run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
-    run "ln -nfs #{shared_path}/log #{release_path}/log"
-    run "ln -nfs #{shared_path}/tmp/sockets #{release_path}/tmp/sockets"
-    run "ln -nfs #{shared_path}/db #{release_path}/db/sqlite"
-    run "rm -rf  #{release_path}/public"
-    run "ln -nfs #{shared_path}/public #{release_path}/public"
-  end
+  # For those using RVM, use this to load an RVM version@gemset.
+  # invoke :'rvm:use[ruby-1.9.3-p125@default]'
+end
 
-  desc "Start the application"
-  task :start, roles: :app, except: { no_release: true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec puma -b 'unix://#{shared_path}/sockets/puma.sock' -S #{shared_path}/sockets/puma.state --control 'unix://#{shared_path}/sockets/pumactl.sock' >> #{shared_path}/log/puma-#{stage}.log 2>&1 &", :pty => false
+desc 'Sets current deploy environment to production'
+task :production do
+  set :domain, '37.139.12.234'
+end
+
+# Put any custom mkdir's in here for when `mina setup` is ran.
+# For Rails apps, we'll make some of the shared paths that are shared between
+# all releases.
+task :setup => :environment do
+  queue! %[mkdir -p "#{deploy_to}/shared/log"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
+  
+  queue! %[mkdir -p "#{deploy_to}/shared/tmp/pids"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/pids"]
+  
+  queue! %[mkdir -p "#{deploy_to}/shared/config"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
+  
+  queue! %[touch "#{deploy_to}/shared/config/database.yml"]
+end
+
+desc "Deploys the current version to the server."
+task :deploy => :environment do
+  deploy do
+    # Put things that will set up an empty directory into a fully set-up
+    # instance of your project.
+    invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
+    invoke :'bundle:install'
+    
+    to :launch do
+      queue! "bundle exec bluepill --no-privileged load #{app_path}/config/services.pill"
+      # останавливаем и стартуем приложение, чтобы подхватился обновленный Gemfile
+      queue! 'bundle exec bluepill --no-privileged dev stop'
+      queue! 'bundle exec bluepill --no-privileged dev start'
+    end
   end
- 
-  desc "Stop the application"
-  task :stop, roles: :app, except: { no_release: true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{shared_path}/sockets/puma.state stop"
+end
+
+namespace :logs do
+  desc 'tail -f log/production.log'
+  task :tail do
+    queue "tail -f #{app_path}/log/production.log"
   end
- 
-  desc "Restart the application"
-  task :restart, roles: :app, except: { no_release: true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{shared_path}/sockets/puma.state restart"
-  end
- 
-  desc "Status of the application"
-  task :status, roles: :app, except: { no_release: true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{shared_path}/sockets/puma.state stats"
+  
+  desc 'less log/production.log'
+  task :less do
+    queue "less #{app_path}/log/production.log"
   end
 end
