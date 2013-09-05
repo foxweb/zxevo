@@ -10,7 +10,7 @@ environment 'production'
 pidfile     pids_dir.join('puma.pid').to_s
 state_path  tmp_dir.join('puma.state').to_s
 
-bind 'tcp://0.0.0.0:9025'
+bind 'unix:///home/foxweb/www/zxevo/shared/sockets/puma.sock'
 
 # production_log_path = logs_dir.join('production.log').to_s
 # stdout_redirect production_log_path, production_log_path, true

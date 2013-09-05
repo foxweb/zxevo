@@ -1,5 +1,5 @@
 require 'mina/bundler'
-# require 'mina/rails'
+require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
@@ -62,8 +62,11 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
+    invoke :'rails:db_migrate'
+    invoke :'rails:assets_precompile'
     
     to :launch do
+      queue! %[ln -nfs #{deploy_to}/shared/db/production.sqlite3 #{deploy_to}/#{current_path}/db/production.sqlite3]
       queue! "bundle exec bluepill --no-privileged load #{app_path}/config/services.pill"
       # останавливаем и стартуем приложение, чтобы подхватился обновленный Gemfile
       # queue! 'bundle exec bluepill --no-privileged dev stop'
