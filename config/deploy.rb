@@ -66,8 +66,8 @@ task :deploy => :environment do
     to :launch do
       queue! "bundle exec bluepill --no-privileged load #{app_path}/config/services.pill"
       # останавливаем и стартуем приложение, чтобы подхватился обновленный Gemfile
-      queue! 'bundle exec bluepill --no-privileged dev stop'
-      queue! 'bundle exec bluepill --no-privileged dev start'
+      # queue! 'bundle exec bluepill --no-privileged dev stop'
+      # queue! 'bundle exec bluepill --no-privileged dev start'
     end
   end
 end

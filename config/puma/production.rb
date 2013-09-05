@@ -12,5 +12,5 @@ state_path  tmp_dir.join('puma.state').to_s
 
 bind 'tcp://0.0.0.0:9025'
 
-production_log_path = logs_dir.join('production.log').to_s
-stdout_redirect production_log_path, production_log_path, true
+# production_log_path = logs_dir.join('production.log').to_s
+# stdout_redirect production_log_path, production_log_path, true
