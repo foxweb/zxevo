@@ -54,6 +54,9 @@ task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/sockets"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/sockets"]
 
+  queue! %[mkdir -p "#{deploy_to}/shared/uploads"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/uploads"]
+
   queue! %[touch "#{deploy_to}/shared/config/database.yml"]
 end
 
@@ -70,6 +73,8 @@ task :deploy => :environment do
     
     to :launch do
       queue! %[ln -nfs #{deploy_to}/shared/db/production.sqlite3 #{deploy_to}/#{current_path}/db/production.sqlite3]
+      queue! %[rm -rf #{deploy_to}/#{current_path}/public/uploads]
+      queue! %[ln -nfs #{deploy_to}/shared/uploads #{deploy_to}/#{current_path}/public/uploads]
       queue! "bundle exec bluepill --no-privileged load #{app_path}/config/services.pill"
       # останавливаем и стартуем приложение, чтобы подхватился обновленный Gemfile
       # queue! 'bundle exec bluepill --no-privileged dev stop'
