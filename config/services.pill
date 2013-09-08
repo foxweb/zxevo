@@ -1,0 +1,20 @@
+root_path = File.expand_path('../..', __FILE__)
+
+Bluepill.application 'dev', log_file: "#{root_path}/log/bluepill.log" do |app|
+  app.working_dir = root_path
+  
+  app.process 'puma' do |process|
+    # process.start_command   = "bundle exec puma -C #{root_path}/config/puma/development.rb"
+    process.start_command   = "bundle exec puma -C #{root_path}/config/puma/production.rb"
+    process.stop_command    = "bundle exec pumactl -S #{root_path}/tmp/puma.state stop"
+    process.restart_command = "bundle exec pumactl -S #{root_path}/tmp/puma.state restart"
+    
+    process.pid_file = "#{root_path}/tmp/puma.pid"
+    process.daemonize = true
+    process.stdout = process.stderr = "#{root_path}/log/puma.log"
+    
+    process.start_grace_time    = 5.seconds
+    process.stop_grace_time     = 10.seconds
+    process.restart_grace_time  = process.start_grace_time + process.stop_grace_time
+  end
+end
