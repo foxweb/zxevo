@@ -55,7 +55,7 @@ task :setup => :environment do
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/sockets"]
 
   queue! %[mkdir -p "#{deploy_to}/shared/uploads"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/uploads"]
+  queue! %[chmod g+rwx,u+rwx "#{deploy_to}/shared/uploads"]
 
   queue! %[touch "#{deploy_to}/shared/config/database.yml"]
 end

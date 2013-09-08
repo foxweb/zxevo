@@ -3,7 +3,7 @@
 
 RailsAdmin.config do |config|
   
-  ADMIN_EMAILS= ['lesha@kurepin.com', 'a.kurepin@gmail.com', '7@7vn.ru']
+  ADMIN_EMAILS= ['lesha@kurepin.com']
 
   ################  Global configuration  ################
 
