@@ -15,8 +15,5 @@ Zxevo::Application.routes.draw do
   resources :posts
   root to: 'home#index', as: :static, via: :get
   
-  get '/:slug' => 'pages#show', slug: :slug
-  
-  # get '/:id' => 'high_voltage/pages#show', as: :static, via: :get
-  # root to: 'high_voltage/pages#show', id: 'home'
+  get '/:slug' => 'pages#show', as: :static, slug: /[a-z0-9_\/]+/
 end
