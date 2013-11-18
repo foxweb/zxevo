@@ -1,9 +1,10 @@
 h1=t '.title'
 
 - @posts.each do |post|
-  div.post
+  .post
     h2= link_to post.title, post_path(post)
-    div= Russian::strftime(post.created_at, '%d %b %Y %H:%M')
-    div== post.body
-    div= post.user.email
+    .meta= Russian::strftime(post.created_at, '%d %b %Y %H:%M')
+    == post.body
+    .comments_count= link_to post.title, post_path(post, anchor: 'disqus_thread')
     hr
+
