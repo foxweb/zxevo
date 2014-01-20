@@ -1,14 +1,16 @@
 - model_class = Post
-.page-header
+header
   h2= @post.title
 
-p
+.entry-content
   == @post.body
+
 footer
   | Написал 
   = @post.user.name
   |   
-  time= Russian::strftime(@post.created_at, '%d %b %Y %H:%M')
+  time(datetime== @post.created_at.strftime('%FT%T%:z') pubdate data-updated="true")= Russian::strftime(@post.created_at, '%d %B %Y %H:%M')
+  hr
 
 #disqus_thread
 
