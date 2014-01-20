@@ -2,7 +2,7 @@ ru:
   # controller/action/title
   posts:
     index:
-      title: Блог
+      title: Блог ZX Evolution
   activerecord:
     models:
       user:

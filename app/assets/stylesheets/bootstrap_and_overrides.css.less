@@ -1,8 +1,8 @@
 @import "twitter/bootstrap/bootstrap";
 @import "twitter/bootstrap/responsive";
 
-@header-font: "Scada";
-@import "http://fonts.googleapis.com/css?family=Scada:400italic,400,700&subset=latin,cyrillic";;
+@header-font: "PT Sans";
+@import "http://fonts.googleapis.com/css?family=PT Sans:400italic,400,700&subset=latin,cyrillic";;
 
 // Glyphicons
 @import "twitter/bootstrap/sprites.less";
@@ -14,14 +14,15 @@
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled bootstrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath:  'fontawesome-webfont.eot';
-@fontAwesomeWoffPath: 'fontawesome-webfont.woff';
-@fontAwesomeTtfPath:  'fontawesome-webfont.ttf';
-@fontAwesomeSvgzPath: 'fontawesome-webfont.svgz';
-@fontAwesomeSvgPath:  'fontawesome-webfont.svg';
+@fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
+@fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot#iefix");
+@fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
-@import 'font-awesome';
-@import 'font-awesome-ie7';
+// Font Awesome
+@import "fontawesome/font-awesome";
+@import "fontawesome/font-awesome-ie7";
 
 
 // Your custom LESS stylesheets goes here
@@ -34,7 +35,7 @@
 //
 // Example:
 @linkColor: #f00;
-@navbarHeight: 60px;
+@navbarHeight: 50pt;
 @navbarBackgroundHighlight: @grayDark;
 @navbarBackground: @grayDarker;
 @navbarText: @grayLight;
