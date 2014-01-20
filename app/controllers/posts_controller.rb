@@ -2,11 +2,12 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.order('created_at DESC').all
+    @posts = Post.includes(:user).order('created_at DESC').all
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
+      format.rss  { render rss:  @posts, layout: 'rss' }
     end
   end
 

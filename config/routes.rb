@@ -12,6 +12,7 @@ Zxevo::Application.routes.draw do
   end
 
   get 'blog', to: 'posts#index'
+  get 'rss',  to: 'posts#index', format: :rss, as: 'feed'
   resources :posts
   root to: 'home#index', as: :static, via: :get
   
