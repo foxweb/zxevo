@@ -4,7 +4,7 @@ h1=t '.title'
   article
     header
       h2= link_to post.title, post_path(post)
-      time(datetime== post.created_at.strftime('%FT%T%:z') pubdate data-updated="true")= Russian::strftime(post.created_at, '%d %B %Y %H:%M')
+      time(datetime== post.created_at.strftime('%FT%T%:z') pubdate data-updated="true")= Russian::strftime(post.created_at, '%d %B %Y, %H:%M')
     == post.body
     footer
       = link_to 'Читать полностью →', post_path(post), rel: 'full-article'
