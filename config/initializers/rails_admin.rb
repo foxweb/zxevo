@@ -27,7 +27,11 @@ RailsAdmin.config do |config|
       field :body, :text do
         ckeditor true
       end
-      field :user
+      field :user do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
     end
   end
   
@@ -38,7 +42,13 @@ RailsAdmin.config do |config|
       field :body, :text do
         ckeditor true
       end
-      field :user
+      field :comments_on
+      field :is_visible
+      field :user do
+        default_value do
+          bindings[:view]._current_user.id
+        end
+      end
     end
   end
 

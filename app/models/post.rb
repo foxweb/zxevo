@@ -5,4 +5,8 @@ class Post < ActiveRecord::Base
   def link
     "http://zx.rediron.ru/posts/#{id}"
   end
+
+  def comments_on
+    true
+  end
 end

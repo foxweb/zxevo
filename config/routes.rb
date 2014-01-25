@@ -14,7 +14,7 @@ Zxevo::Application.routes.draw do
   get 'blog', to: 'posts#index'
   get 'rss',  to: 'posts#index', format: :rss, as: 'feed'
   resources :posts
-  root to: 'home#index', as: :static, via: :get
+  root to: 'home#index', as: :homepage, via: :get
   
   get '/:slug' => 'pages#show', as: :static, slug: /[a-z0-9_\/]+/
 end
