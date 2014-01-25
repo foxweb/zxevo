@@ -23,8 +23,8 @@ ru:
         id: '#'
         title: Заголовок
         body: Тело
-        user_id: Пользователь
-        user: Пользователь
+        user_id: Юзер
+        user: Юзер
         created_at: Дата создания
       user:
         id: '#'
@@ -48,11 +48,13 @@ ru:
         id: '#'
         title: Заголовок
         slug: URL
-        body: Текст страницы
-        user: Пользователь
-        user_id: Пользователь
+        body: Текст
+        user: Юзер
+        user_id: Юзер
         created_at: Создано
         updated_at: Обновлено
+        comments_on: Коменты?
+        is_visible: Опубликовать?
   helpers:
     actions: Действия
     links:
