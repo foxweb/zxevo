@@ -7,7 +7,7 @@ html
     meta(name="apple-mobile-web-app-capable" content="yes")
     title= content_for?(:title) ? yield(:title) : "Сайт о компьютере ZX Evolution"
     = csrf_meta_tags
-    /![if lt IE 9]
+    /[if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", media: "all"
     = auto_discovery_link_tag(:rss, 'http://zx.rediron.ru/rss', title: 'Блог ZX Evolution')
