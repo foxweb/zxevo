@@ -231,6 +231,7 @@ GEM
     mini_portile (0.5.2)
     multi_json (1.8.4)
     multi_test (0.0.3)
+    mysql2 (0.3.11)
     nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -445,6 +446,7 @@ DEPENDENCIES
   letter_opener
   mina
   mini_magick
+  mysql2
   puma (>= 1.6.3)
   quiet_assets (>= 1.0.2)
   rails (~> 3.2.16)

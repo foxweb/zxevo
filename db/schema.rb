@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20140125204834) do
   create_table "pages", :force => true do |t|
     t.string   "title",       :default => "",   :null => false
     t.string   "slug",        :default => "",   :null => false
-    t.text     "body",        :default => "",   :null => false
+    t.text     "body"
     t.integer  "user_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
@@ -57,10 +57,10 @@ ActiveRecord::Schema.define(:version => 20140125204834) do
     t.string   "username"
     t.integer  "item"
     t.string   "table"
-    t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 5
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"

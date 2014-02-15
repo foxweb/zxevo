@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~>3.2.16'
 
 gem 'sqlite3'
+gem 'mysql2'
 gem 'jquery-rails'
 gem 'capistrano'
 gem 'capistrano-rbenv'
@@ -21,9 +22,7 @@ gem 'rails_admin'
 gem 'ckeditor'
 gem 'carrierwave'
 gem 'mini_magick'
-# gem 'high_voltage'
 gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'debugger'
 gem 'version'
 
 # Gems used only for assets and not required
@@ -59,6 +58,7 @@ group :development do
   gem 'hub', '>= 1.10.2', require: false
   gem 'binding_of_caller', '>= 0.7.1', platforms: [:mri_19, :rbx]
   gem 'colorize'
+  gem 'debugger'
 end
 
 group :development, :test do
