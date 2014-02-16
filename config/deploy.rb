@@ -28,7 +28,7 @@ task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
   queue! %[touch "#{deploy_to}/shared/config/database.yml"]
-  
+
   queue! %[mkdir -p "#{deploy_to}/shared/sockets"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/sockets"]
 
@@ -51,7 +51,7 @@ task :deploy => :environment do
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
-    
+
     to :launch do
       invoke :'puma:restart'
     end
@@ -63,7 +63,7 @@ namespace :logs do
   task :tail do
     queue "tail -f #{app_path}/log/production.log"
   end
-  
+
   desc 'less log/production.log'
   task :less do
     queue "less #{app_path}/log/production.log"
@@ -71,12 +71,32 @@ namespace :logs do
 end
 
 namespace :puma do
+  set :bp, "cd #{app_path} && bundle exec bluepill --no-privileged"
+  set :bp_config, "#{bp} load #{app_path}/config/services.pill"
+
   desc "Restart puma"
   task :restart => :environment do
     queue %{
-      cd #{app_path}
-      bundle exec bluepill --no-privileged load #{app_path}/config/services.pill
-      bundle exec bluepill --no-privileged dev restart
+      #{bp_config}
+      #{bp} dev stop
+      #{bp_config}
+      #{bp} dev start
+    }
+  end
+
+  desc "Stop puma"
+  task :stop => :environment do
+    queue %{
+      #{bp_config}
+      #{bp} dev stop
+    }
+  end
+
+  desc "Start puma"
+  task :start => :environment do
+    queue %{
+      #{bp_config}
+      #{bp} dev start
     }
   end
 end
