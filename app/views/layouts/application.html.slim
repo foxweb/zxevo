@@ -28,30 +28,35 @@ html
           .well.sidebar-nav
             ul.nav.nav-list
               li.nav-header Что тут есть?
-              li
-                a href="/"
+              li= link_to(homepage_path) do
                   i.icon-home
                   |  Старт
-              li
-                a href="/blog"
+              li= link_to(blog_path) do
                   i.icon-list
                   |  Блог
-              li
-                a href="/projects"
+              li= link_to(static_path(slug: 'projects')) do
                   i.icon-folder-open
                   |  Проекты
-              li
-                a href="/manuals"
-                  i.icon-file
-                  |  Инструкции
-              li
-                a href="/people"
+              li= link_to(static_path(slug: 'people')) do
                   i.icon-user
                   |  Люди
-              li
-                a href="/about"
+              li= link_to(static_path(slug: 'about')) do
                   i.icon-trash
                   |  Разное
+
+          .well.sidebar-nav
+            ul.nav.nav-list
+              li.nav-header Быстрый старт
+              li=link_to(static_path(slug: 'faq')) do
+                  i.icon-question-sign
+                  | FAQ
+              li=link_to(static_path(slug: 'manuals')) do
+                  i.icon-file-text
+                  | Документация
+              li=link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank') do
+                  i.icon-cloud-download
+                  | SVN-архив
+
         .span9
           = bootstrap_flash
           = yield
@@ -63,7 +68,7 @@ html
         .row
           .span9
             .container
-             | &copy; Сайт сделал 
+             | &copy; Сайт сделал
              a href="http://kurepin.com" foxweb
              |  в 2013 году
 
