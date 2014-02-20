@@ -33,29 +33,29 @@ html
                   |  Старт
               li= link_to(blog_path) do
                   i.icon-list
-                  |  Блог
+                  |  Блог ZX Evolution
               li= link_to(static_path(slug: 'projects')) do
                   i.icon-folder-open
-                  |  Проекты
+                  |  Проекты NedoPC
               li= link_to(static_path(slug: 'people')) do
                   i.icon-user
-                  |  Люди
+                  |  Люди NedoPC
               li= link_to(static_path(slug: 'about')) do
                   i.icon-trash
-                  |  Разное
+                  |  Всякая всячина
 
           .well.sidebar-nav
             ul.nav.nav-list
-              li.nav-header Быстрый старт
+              li.nav-header ZX Evo — быстрый старт
               li=link_to(static_path(slug: 'faq')) do
                   i.icon-question-sign
-                  | FAQ
+                  | FAQ: вопросы и ответы
               li=link_to(static_path(slug: 'manuals')) do
                   i.icon-file-text
-                  | Документация
+                  | Документация по ZX Evo
               li=link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank') do
                   i.icon-cloud-download
-                  | SVN-архив
+                  | SVN-архив исходников
 
         .span9
           = bootstrap_flash
