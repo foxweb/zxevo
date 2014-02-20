@@ -47,13 +47,13 @@ html
           .well.sidebar-nav
             ul.nav.nav-list
               li.nav-header ZX Evo — быстрый старт
-              li=link_to(static_path(slug: 'faq')) do
+              li= link_to(static_path(slug: 'faq')) do
                   i.icon-question-sign
                   | FAQ: вопросы и ответы
-              li=link_to(static_path(slug: 'manuals')) do
+              li= link_to(static_path(slug: 'manuals')) do
                   i.icon-file-text
                   | Документация по ZX Evo
-              li=link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank') do
+              li= link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank') do
                   i.icon-cloud-download
                   | SVN-архив исходников
 
@@ -61,7 +61,7 @@ html
             ul.nav.nav-list
               li.nav-header Свежие посты
               -fresh_posts.each do |post|
-                li=link_to(post_path(post)) do
+                li= link_to(post_path(post)) do
                     i.icon-edit
                     = post.title
 
@@ -77,9 +77,16 @@ html
         .row
           .span9
             .container
-             | &copy; Сайт сделал
-             a href="http://kurepin.com" foxweb
-             |  в 2013 году
+             =link_to 'http://creativecommons.org/licenses/by-nc/3.0/deed.ru' do
+                =image_tag "http://i.creativecommons.org/l/by-nc/3.0/80x15.png", { alt: "Creative Commons License", style: "margin-right:10px;margin-bottom:4px; border: 0;", id: "licensebutton_slim" }
+             |  Сайт сделал&nbsp;
+             =link_to 'foxweb', '//kurepin.com/'
+             |  в 2013 году.
+             |  Исходники на&nbsp;
+             =link_to '//github.com/foxweb/zxevo' do
+              i.icon-github
+              |  Github
+             |.
 
     = javascript_include_tag "application"
     - if Rails.env == 'production'
