@@ -57,6 +57,15 @@ html
                   i.icon-cloud-download
                   | SVN-архив исходников
 
+          .well.sidebar-nav
+            ul.nav.nav-list
+              li.nav-header Свежие посты
+              -fresh_posts.each do |post|
+                li=link_to(post_path(post)) do
+                    i.icon-edit
+                    = post.title
+
+
         .span9
           = bootstrap_flash
           = yield

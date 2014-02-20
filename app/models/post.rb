@@ -9,4 +9,8 @@ class Post < ActiveRecord::Base
   def comments_on
     true
   end
+
+  def self.fresh
+    self.order('created_at DESC').limit(5).each
+  end
 end
