@@ -1,11 +1,13 @@
+- model_class = Page
+- title(@page.title)
 header
   h1= @page.title
   .page-body
     =raw @page.body
 
 footer
-  | Последнее изменение   
-  time(datetime== @page.updated_at.strftime('%FT%T%:z') pubdate data-updated="true")= Russian::strftime(@page.updated_at, '%d %B %Y, %H:%M')
+  | Обновление&nbsp;
+  time(datetime== @page.iso_date pubdate data-updated="true")= @page.russian_date
   hr
 
 = render 'comments' if @page.comments_on

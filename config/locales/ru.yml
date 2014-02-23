@@ -77,5 +77,5 @@ ru:
     required:
       text: 'обязательное поле'
       mark: '*'
-    error_notification: 
+    error_notification:
       default_message: 'У нас проблемы:'

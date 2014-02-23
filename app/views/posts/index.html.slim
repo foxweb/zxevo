@@ -1,10 +1,12 @@
+- model_class = Post
+- title(t '.title')
 h1=t '.title'
 
 - @posts.each do |post|
   article
     header
       h2= link_to post.title, post_path(post)
-      time(datetime== post.created_at.strftime('%FT%T%:z') pubdate data-updated="true")= Russian::strftime(post.created_at, '%d %B %Y, %H:%M')
+      time(datetime== post.iso_date pubdate data-updated="true")= post.russian_date
     == post.body
     footer
       = link_to 'Читать полностью →', post_path(post), rel: 'full-article'

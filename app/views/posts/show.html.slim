@@ -1,4 +1,5 @@
 - model_class = Post
+- title(@post.title)
 header
   h2= @post.title
 
@@ -6,10 +7,10 @@ header
   == @post.body
 
 footer
-  | Написал 
+  | Написал&nbsp;
   = @post.user.name
-  |   
-  time(datetime== @post.created_at.strftime('%FT%T%:z') pubdate data-updated="true")= Russian::strftime(@post.created_at, '%d %B %Y, %H:%M')
+  | &nbsp;
+  time(datetime== @post.iso_date pubdate data-updated="true")= @post.russian_date
   hr
 
 = render 'comments' if @post.comments_on
