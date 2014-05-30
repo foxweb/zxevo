@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~>3.2.16'
+ruby '2.1.2'
+
+gem 'rails', '~>3.2.18'
 
 gem 'sqlite3'
 gem 'mysql2'
@@ -58,11 +60,10 @@ group :development do
   gem 'hub', '>= 1.10.2', require: false
   gem 'binding_of_caller', '>= 0.7.1', platforms: [:mri_19, :rbx]
   gem 'colorize'
-  gem 'debugger'
 end
 
 group :development, :test do
-  gem 'jazz_hands'
+  gem 'awesome_pry'
   gem 'rspec-rails', '>= 2.12.2'
   gem 'factory_girl_rails', '>= 4.2.0'
 end
