@@ -13,20 +13,23 @@ RailsAdmin.config do |config|
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
   # RailsAdmin may need a way to know who the current user is]
-  config.current_user_method { current_user } # auto-generated
-  config.authorize_with do
-    is_admin = ADMIN_EMAILS.include?(current_user.email) 
-    if current_user
-        redirect_to main_app.new_user_session_url unless is_admin 
-    end
+  # config.current_user_method { current_user } # auto-generated
+  # config.authorize_with do
+  #   is_admin = ADMIN_EMAILS.include?(current_user.email)
+  #   if current_user
+  #       redirect_to main_app.new_user_session_url unless is_admin
+  #   end
+  # end
+  
+  config.authenticate_with do
+    warden.authenticate! scope: :user
   end
+  config.current_user_method(&:current_user)
   
   config.model Post do
     edit do
       field :title
-      field :body, :text do
-        ckeditor true
-      end
+      field :body, :ck_editor
       field :user do
         default_value do
           bindings[:view]._current_user.id
@@ -39,9 +42,7 @@ RailsAdmin.config do |config|
     edit do
       field :slug
       field :title
-      field :body, :text do
-        ckeditor true
-      end
+      field :body, :ck_editor
       field :comments_on
       field :is_visible
       field :user do
@@ -98,16 +99,16 @@ RailsAdmin.config do |config|
 
   #   # Found associations:
 
-  #     configure :user, :belongs_to_association 
+  #     configure :user, :belongs_to_association
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :title, :string 
-  #     configure :body, :text 
-  #     configure :user_id, :integer         # Hidden 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
+  #     configure :id, :integer
+  #     configure :title, :string
+  #     configure :body, :text
+  #     configure :user_id, :integer         # Hidden
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
 
   #   # Cross-section configuration:
 
@@ -147,20 +148,20 @@ RailsAdmin.config do |config|
 
   #   # Found columns:
 
-  #     configure :id, :integer 
-  #     configure :email, :string 
-  #     configure :password, :password         # Hidden 
-  #     configure :password_confirmation, :password         # Hidden 
-  #     configure :reset_password_token, :string         # Hidden 
-  #     configure :reset_password_sent_at, :datetime 
-  #     configure :remember_created_at, :datetime 
-  #     configure :sign_in_count, :integer 
-  #     configure :current_sign_in_at, :datetime 
-  #     configure :last_sign_in_at, :datetime 
-  #     configure :current_sign_in_ip, :string 
-  #     configure :last_sign_in_ip, :string 
-  #     configure :created_at, :datetime 
-  #     configure :updated_at, :datetime 
+  #     configure :id, :integer
+  #     configure :email, :string
+  #     configure :password, :password         # Hidden
+  #     configure :password_confirmation, :password         # Hidden
+  #     configure :reset_password_token, :string         # Hidden
+  #     configure :reset_password_sent_at, :datetime
+  #     configure :remember_created_at, :datetime
+  #     configure :sign_in_count, :integer
+  #     configure :current_sign_in_at, :datetime
+  #     configure :last_sign_in_at, :datetime
+  #     configure :current_sign_in_ip, :string
+  #     configure :last_sign_in_ip, :string
+  #     configure :created_at, :datetime
+  #     configure :updated_at, :datetime
 
   #   # Cross-section configuration:
 
