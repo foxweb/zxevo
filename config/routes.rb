@@ -1,5 +1,4 @@
-Zxevo::Application.routes.draw do
-  
+Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   devise_for :users
@@ -12,7 +11,7 @@ Zxevo::Application.routes.draw do
   end
 
   get 'blog', to: 'posts#index'
-  get 'rss',  to: 'posts#index', format: :rss, as: 'feed'
+  get 'rss',  to: 'posts#index', defaults: { format: :rss }
   resources :posts
   root to: 'home#index', as: :homepage, via: :get
   
