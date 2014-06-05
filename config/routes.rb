@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   get 'blog', to: 'posts#index'
-  get 'rss',  to: 'posts#index', format: :rss, as: 'feed'
+  get 'rss',  to: 'posts#index', defaults: { format: :rss }
   resources :posts
   root to: 'home#index', as: :homepage, via: :get
   
