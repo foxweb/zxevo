@@ -10,14 +10,14 @@ class Post < ActiveRecord::Base
   end
 
   def self.fresh
-    self.order('created_at DESC').limit(5).each
+    order('created_at DESC').limit(5)
   end
 
   def iso_date
-    self.created_at.strftime('%FT%T%:z')
+    created_at.strftime('%FT%T%:z')
   end
 
   def russian_date
-    Russian::strftime(self.created_at, '%d %B %Y, %H:%M')
+    Russian::strftime(created_at, '%d %B %Y, %H:%M')
   end
 end
