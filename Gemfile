@@ -6,7 +6,7 @@ gem 'rails'
 
 gem 'mysql2'
 gem 'turbolinks'
-gem 'puma', '>= 1.6.3'
+gem 'puma'
 gem 'mina'
 gem 'bluepill'
 gem 'slim-rails'
@@ -17,7 +17,7 @@ gem 'devise'
 gem 'ckeditor'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby'
 
 # bootstrap and css stuff
 gem 'twitter-bootstrap-rails'
