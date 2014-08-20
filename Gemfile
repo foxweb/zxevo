@@ -20,7 +20,7 @@ gem 'mini_magick'
 gem 'bcrypt-ruby'
 
 # bootstrap and css stuff
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '~>2.2.8'
 gem 'less-rails'
 gem 'sass-rails'
 gem 'compass-rails'
