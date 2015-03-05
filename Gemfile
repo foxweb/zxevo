@@ -17,7 +17,7 @@ gem 'devise'
 gem 'ckeditor'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'bcrypt'
+gem 'bcrypt-ruby'
 
 # bootstrap and css stuff
 gem 'twitter-bootstrap-rails', '~>2.2.8'
