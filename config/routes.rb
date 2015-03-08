@@ -12,8 +12,10 @@ Rails.application.routes.draw do
 
   get 'blog', to: 'posts#index'
   get 'rss',  to: 'posts#index', defaults: { format: :rss }
+  
   resources :posts
-  root to: 'home#index', as: :homepage, via: :get
   
   get '/:slug' => 'pages#show', as: :static, slug: /[a-z0-9_\/]+/
+  
+  root to: 'home#index', as: :homepage, via: :get
 end
