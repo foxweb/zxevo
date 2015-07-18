@@ -1,5 +1,6 @@
 require 'pathname'
 
+daemonize
 app_root = Pathname.new('../../..').expand_path(__FILE__)
 tmp_dir  = app_root.join('tmp')
 pids_dir = tmp_dir.join('pids')

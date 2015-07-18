@@ -71,32 +71,24 @@ namespace :logs do
 end
 
 namespace :puma do
-  set :bp, "cd #{app_path} && bundle exec bluepill --no-privileged"
-  set :bp_config, "#{bp} load #{app_path}/config/services.pill"
-
   desc "Restart puma"
   task :restart => :environment do
     queue %{
-      #{bp_config}
-      #{bp} dev stop
-      #{bp_config}
-      #{bp} dev start
+      cd #{app_path} && bundle exec pumactl -F ./config/puma/production.rb restart
     }
   end
 
   desc "Stop puma"
   task :stop => :environment do
     queue %{
-      #{bp_config}
-      #{bp} dev stop
+      cd #{app_path} && bundle exec pumactl -S ./tmp/puma.state stop
     }
   end
 
   desc "Start puma"
   task :start => :environment do
     queue %{
-      #{bp_config}
-      #{bp} dev start
+      cd #{app_path} && bundle exec puma -C ./config/puma/production.rb
     }
   end
 end
