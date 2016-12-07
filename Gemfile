@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 gem 'rails'
 
 gem 'mysql2'
 gem 'turbolinks'
 gem 'puma'
-gem 'mina'
+gem 'mina', '~>0.3.8'
 gem 'slim-rails'
 gem 'jbuilder'
 gem 'russian'
