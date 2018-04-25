@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   def link
-    "http://zx.rediron.ru/posts/#{id}"
+    "https://zx.rediron.ru/posts/#{id}"
   end
 
   def comments_on
