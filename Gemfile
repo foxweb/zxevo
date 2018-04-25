@@ -1,41 +1,41 @@
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.3.7'
 
-gem 'rails', '4.1.9'
+gem 'rails', '4.1.16'
 
-gem 'mysql2', '0.3.18'
-gem 'turbolinks'
-gem 'puma'
-gem 'mina', '~>0.3.8'
-gem 'slim-rails'
-gem 'jbuilder'
-gem 'russian'
-gem 'rails_admin', '0.6.3'
-gem 'devise'
-gem 'ckeditor'
-gem 'carrierwave'
-gem 'mini_magick'
 gem 'bcrypt'
+gem 'carrierwave'
+gem 'ckeditor'
+gem 'devise'
+gem 'jbuilder'
+gem 'mina', '~>0.3.8'
+gem 'mini_magick'
+gem 'mysql2', '0.3.18'
+gem 'puma'
+gem 'rails_admin', '0.6.3'
+gem 'russian'
+gem 'slim-rails'
+gem 'turbolinks'
 
 # bootstrap and css stuff
-gem 'twitter-bootstrap-rails', '~>2.2.8'
-gem 'less-rails'
-gem 'sass-rails'
+gem 'bootstrap-sass'
+gem 'coffee-rails'
 gem 'compass-rails'
 gem 'execjs'
-gem 'therubyracer'
-gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'bootstrap-sass'
+gem 'less-rails'
+gem 'sass-rails'
+gem 'therubyracer'
+gem 'twitter-bootstrap-rails', '~>2.2.8'
 gem 'uglifier'
 
 group :development do
-  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'colorize'
   gem 'quiet_assets'
+  gem 'spring'
 end
 
 group :development, :test do
