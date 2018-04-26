@@ -2,8 +2,7 @@
 # See github.com/sferik/rails_admin for more informations
 
 RailsAdmin.config do |config|
-  
-  ADMIN_EMAILS= ['lesha@kurepin.com']
+  ADMIN_EMAILS = ['lesha@kurepin.com'].freeze
 
   ################  Global configuration  ################
 
@@ -20,12 +19,12 @@ RailsAdmin.config do |config|
   #       redirect_to main_app.new_user_session_url unless is_admin
   #   end
   # end
-  
+
   config.authenticate_with do
     warden.authenticate! scope: :user
   end
   config.current_user_method(&:current_user)
-  
+
   config.model Post do
     edit do
       field :title
@@ -37,7 +36,7 @@ RailsAdmin.config do |config|
       end
     end
   end
-  
+
   config.model Page do
     edit do
       field :slug
@@ -74,7 +73,6 @@ RailsAdmin.config do |config|
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
 
-
   ################  Model configuration  ################
 
   # Each model configuration can alternatively:
@@ -85,11 +83,8 @@ RailsAdmin.config do |config|
   #   - This initializer is loaded once at startup (modifications will show up when restarting the application) but all RailsAdmin configuration would stay in one place.
   #   - Models are reloaded at each request in development mode (when modified), which may smooth your RailsAdmin development workflow.
 
-
   # Now you probably need to tour the wiki a bit: https://github.com/sferik/rails_admin/wiki
   # Anyway, here is how RailsAdmin saw your application's models when you ran the initializer:
-
-
 
   ###  Post  ###
 
@@ -135,7 +130,6 @@ RailsAdmin.config do |config|
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
   # end
 
-
   ###  User  ###
 
   # config.model 'User' do
@@ -143,8 +137,6 @@ RailsAdmin.config do |config|
   #   # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
 
   #   # Found associations:
-
-
 
   #   # Found columns:
 
@@ -187,5 +179,4 @@ RailsAdmin.config do |config|
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
   # end
-
 end

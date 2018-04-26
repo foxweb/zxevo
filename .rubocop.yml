@@ -1,0 +1,29 @@
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 80
+
+Metrics/BlockLength:
+  ExcludedMethods: [describe]
+
+Style/TrailingUnderscoreVariable:
+  Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 2
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false

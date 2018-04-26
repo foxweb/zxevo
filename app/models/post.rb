@@ -18,6 +18,6 @@ class Post < ActiveRecord::Base
   end
 
   def russian_date
-    Russian::strftime(created_at, '%d %B %Y, %H:%M')
+    Russian.strftime(created_at, '%d %B %Y, %H:%M')
   end
 end

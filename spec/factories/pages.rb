@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :page do
-    title "MyString"
-    slug "MyString"
-    body "MyText"
+    title 'MyString'
+    slug 'MyString'
+    body 'MyText'
     user nil
   end
 end

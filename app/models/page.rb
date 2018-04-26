@@ -6,6 +6,6 @@ class Page < ActiveRecord::Base
   end
 
   def russian_date
-    Russian::strftime(updated_at, '%d %B %Y, %H:%M')
+    Russian.strftime(updated_at, '%d %B %Y, %H:%M')
   end
 end
