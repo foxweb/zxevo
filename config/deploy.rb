@@ -9,7 +9,7 @@ set :deploy_to, '/home/foxweb/www/zx.rediron.ru'
 set :app_path, "#{deploy_to}/#{current_path}"
 set :repository, 'git@github.com:foxweb/zxevo.git'
 set :branch, `git rev-parse --abbrev-ref HEAD`.rstrip
-set :shared_paths, %w[config/database.yml public/uploads public/assets log tmp]
+set :shared_paths, %w[config/database.yml public/uploads log tmp]
 set :keep_releases, 5
 
 task :environment do
