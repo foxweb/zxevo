@@ -5,7 +5,7 @@ ruby '2.3.7'
 gem 'rails', '4.1.16'
 
 gem 'bcrypt'
-gem 'carrierwave'
+gem 'carrierwave', '>= 1.3.2'
 gem 'ckeditor'
 gem 'devise'
 gem 'jbuilder'
