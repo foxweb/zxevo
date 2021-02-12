@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.7'
 
-gem 'rails', '4.1.16'
+gem 'rails', '6.0.3.5'
 
 gem 'bcrypt'
 gem 'carrierwave'
@@ -13,7 +13,7 @@ gem 'mina', '~>0.3.8'
 gem 'mini_magick'
 gem 'mysql2', '0.3.18'
 gem 'puma'
-gem 'rails_admin', '0.6.3'
+gem 'rails_admin', '2.0.0'
 gem 'russian'
 gem 'slim-rails'
 gem 'turbolinks'
@@ -27,7 +27,7 @@ gem 'jquery-rails'
 gem 'less-rails'
 gem 'sass-rails'
 gem 'therubyracer'
-gem 'twitter-bootstrap-rails', '~>2.2.8'
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'uglifier'
 
 group :development do
