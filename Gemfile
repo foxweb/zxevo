@@ -27,7 +27,7 @@ gem 'jquery-rails'
 gem 'less-rails'
 gem 'sass-rails'
 gem 'therubyracer'
-gem 'twitter-bootstrap-rails', '~>2.2.8'
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'uglifier'
 
 group :development do
