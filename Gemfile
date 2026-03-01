@@ -1,43 +1,38 @@
 source 'https://rubygems.org'
 
-ruby '2.3.7'
+ruby '3.3.4'
 
-gem 'rails', '4.1.16'
+gem 'rails', '~> 6.1.7', '>= 6.1.7.10'
 
 gem 'bcrypt'
-gem 'carrierwave'
-gem 'ckeditor'
-gem 'devise'
-gem 'jbuilder'
-gem 'mina', '~>0.3.8'
-gem 'mini_magick'
-gem 'mysql2', '0.3.18'
-gem 'puma'
-gem 'rails_admin', '0.6.3'
+gem 'carrierwave', '~> 3.1'
+gem 'ckeditor', '~> 5.1'
+gem 'concurrent-ruby', '~> 1.3'
+gem 'devise', '~> 4.9'
+gem 'font-awesome-rails'
+gem 'jbuilder', '~> 2.13'
+gem 'logger', '= 1.6.0'
+gem 'mina', '~> 1.2'
+gem 'mini_magick', '~> 5.1'
+gem 'mutex_m'
+gem 'mysql2', '~> 0.5.6'
+gem 'puma', '~> 6.4'
+gem 'rake', '~> 13.2'
+gem 'rails_admin', '~> 3.3'
 gem 'russian'
-gem 'slim-rails'
-gem 'turbolinks'
+gem 'slim-rails', '~> 3.7'
+gem 'sprockets-rails'
+gem 'turbolinks', '~> 5.2'
 
 # bootstrap and css stuff
-gem 'bootstrap-sass'
-gem 'coffee-rails'
-gem 'compass-rails'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'coffee-rails', '~> 5.0'
 gem 'execjs'
-gem 'jquery-rails'
-gem 'less-rails'
-gem 'sass-rails'
-gem 'therubyracer'
-gem 'twitter-bootstrap-rails', '~>2.2.8'
-gem 'uglifier'
+gem 'jquery-rails', '~> 4.6'
+gem 'sassc-rails'
+gem 'uglifier', '>= 4.2'
 
 group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'better_errors', '~> 2.10'
   gem 'colorize'
-  gem 'quiet_assets'
-  gem 'spring'
-end
-
-group :development, :test do
-  gem 'awesome_pry'
 end

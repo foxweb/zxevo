@@ -17,5 +17,5 @@ Rails.application.routes.draw do
 
   get '/:slug' => 'pages#show', as: :static, slug: /[a-z0-9_\/]+/
 
-  root to: 'home#index', as: :homepage, via: :get
+  root to: 'home#index', as: :homepage
 end

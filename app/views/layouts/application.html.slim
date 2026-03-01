@@ -29,7 +29,9 @@ html
           .well.sidebar-nav
             ul.nav.nav-list
               li.nav-header Что тут есть?
-              li= link_to(homepage_path) do
+              - li_class = current_page?(homepage_path) ? 'active' : ''
+              li class=li_class
+                = link_to(homepage_path) do
                   i.icon-home
                   |  Старт
               li= link_to(blog_path) do

@@ -1,0 +1,10 @@
+.git
+.gitignore
+.bundle
+vendor/bundle
+log/*
+tmp/*
+public/assets
+node_modules
+coverage
+.DS_Store
