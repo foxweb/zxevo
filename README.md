@@ -125,7 +125,7 @@ bin/import_mysql_dump --docker --recreate ./dump.sql   # пересоздать 
 
 ## Деплой (Docker) — рекомендуемый вариант
 
-**Mina** (`config/deploy.rb`) для выкладки **не нужна**: деплой = сборка **образа** и запуск **Compose** (или оркестратор) на сервере. Типичный поток:
+Деплой = сборка **образа** и запуск **Compose** (или оркестратор) на сервере. Типичный поток:
 
 1. **CI** (GitHub Actions, GitLab CI, …): `docker build --target production` → push в registry (GHCR, Docker Hub, свой).
 2. **Сервер**: `docker compose pull` → `docker compose up -d` (или аналог с секретами и `RAILS_ENV=production`).
@@ -153,10 +153,6 @@ docker compose -f docker-compose.production.yml --env-file .env.production up -d
 ```
 
 Пользователь БД приложения по умолчанию совпадает с `MYSQL_USER` в образе MySQL (`DB_USERNAME`, по умолчанию `zxevo`). Для внешней БД уберите сервис `db` и задайте `DB_HOST` / учётные данные в env.
-
-### Деплой на VPS без Docker (legacy)
-
-Если когда-то понадобится выкладка по SSH без образов, в репозитории остаётся **`config/deploy.rb`** (Mina 1.x) и гем **`mina`** в `Gemfile`. Для обычного Docker-деплоя это можно не использовать.
 
 ## Основные маршруты
 
