@@ -4,7 +4,9 @@ html lang="ru"
     meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover")
-    meta(name="theme-color" content="#ffffff")
+    meta(name="theme-color" content="#333333")
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous")
     meta(name="apple-mobile-web-app-capable" content="yes")
     meta(name="apple-mobile-web-app-status-bar-style" content="default")
     meta(name="mobile-web-app-capable" content="yes")
@@ -20,6 +22,7 @@ html lang="ru"
     link(href="/images/apple-touch-icon.png"         rel="apple-touch-icon")
     link(href="/favicon.png" rel="shortcut icon")
   body
+    a.skip-link href="#main-content" К основному содержимому
     .container#root
       header.site-header role="banner"
         nav.navbar.navbar-default.navbar-top role="navigation" aria-label="Шапка сайта"
@@ -80,18 +83,19 @@ html lang="ru"
     footer#footer role="contentinfo"
       .container
         .row
-          .col-md-9
+          .col-md-12
             p.footer-credits
-              = link_to 'https://creativecommons.org/licenses/by-nc/3.0/deed.ru', rel: 'license' do
-                = image_tag "https://i.creativecommons.org/l/by-nc/3.0/80x15.png", alt: "Лицензия Creative Commons BY-NC 3.0", class: "footer-license-badge", id: "licensebutton_slim"
               |  Сайт&nbsp;сделал&nbsp;
-              = link_to 'foxweb', '//kurepin.com/'
+              = link_to 'foxweb', 'https://kurepin.com/', rel: 'noopener noreferrer'
               |  в&nbsp;2013&nbsp;году.
               |  Исходники&nbsp;на&nbsp;
-              = link_to '//github.com/foxweb/zxevo', rel: 'noopener noreferrer' do
+              = link_to 'https://github.com/foxweb/zxevo', rel: 'noopener noreferrer' do
                 i.fa.fa-github
                 | &nbsp;Github
               |.
+            p.footer-credits
+              = link_to 'https://creativecommons.org/licenses/by-nc/3.0/deed.ru', rel: 'license' do
+                = image_tag "https://i.creativecommons.org/l/by-nc/3.0/80x15.png", alt: "Лицензия Creative Commons BY-NC 3.0", class: "footer-license-badge", id: "licensebutton_slim"
 
     = javascript_include_tag "application"
     - if Rails.env == 'production'

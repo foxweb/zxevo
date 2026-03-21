@@ -8,29 +8,33 @@
 // $navbar-default-color: #ddd;
 // $navbar-default-brand-color: #ffd200;
 
-@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700&subset=latin,cyrillic");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap");
 
 // --- Базовая разметка ---
-#root {
-  // // clear: both;
-  // min-height: 100vh;
-  // margin: 0 auto;
-  // padding-bottom: 30pt;
-  // max-width: 100rem;
-}
-
 #root.container {
-  width: 118rem;
+  width: 100%;
+  max-width: 118rem;
   margin: 0 auto;
   padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
-  font-family: "PT Sans";
+  font-family: "PT Sans", "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
   font-weight: bold;
   color: inherit;
-  text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  margin-top: 0;
+  line-height: 1.2;
+}
+
+$body-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+
+body {
+  font-family: $body-font-family
 }
 
 h2 a, h3 a {
@@ -41,6 +45,29 @@ h2 a, h3 a {
 
 a {
   text-decoration: none;
+  color: red;
+  &:hover {
+    color: rgb(179,0,0);
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  color: #111;
+  border-radius: 0 0 0.35rem 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+  &:focus {
+    left: 0.75rem;
+    top: 0.75rem;
+    outline: 2px solid #ffc40d;
+    outline-offset: 2px;
+  }
 }
 
 article header h2 a:hover {
@@ -59,8 +86,7 @@ article header time {
 // --- Хедер (Bootstrap 3: navbar-default, navbar-header, navbar-brand) ---
 .navbar.navbar-top.navbar-default {
   border-radius: 0.75rem;
-  height: 4.2875rem; // 68.6px / 16 = 4.2875rem
-  height: 80px;
+  height: 8rem;
   color: #333333;
   margin-top: 1.5rem;
 }
@@ -108,11 +134,24 @@ article header time {
   border-radius: 0;
   text-decoration: none;
   color: red;
+
+  &:hover,
+  &:focus {
+    color: red;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ffc40d;
+    outline-offset: 2px;
+  }
 }
-.nav-pills>li.active>a,
-.nav-pills>li.active>a:hover,
-.nav-pills>li.active>a:focus {
+
+.sidebar-nav .nav-pills > li.active > a,
+.sidebar-nav .nav-pills > li.active > a:hover,
+.sidebar-nav .nav-pills > li.active > a:focus {
   background-color: inherit;
+  color: red;
 }
 
 .sidebar-nav .nav.nav-pills.nav-stacked > li {
@@ -137,18 +176,206 @@ article header time {
   text-align: center;
   line-height: 1;
   color: gray;
+  padding-top: 0.15rem;
 }
 
 article img, img.img-polaroid {
-  border: 1px solid #ccc;
-  padding: 1.5rem;
-  background: #f9f9f9;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 0.1rem  solid #ccc;
+  padding: 1rem;
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1);
+}
+
+// Карусель на главной: не вылезает за экран на узких вьюпортах
+#homecarousel {
+  .carousel-inner > .item > img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 767px) {
+    .carousel-caption {
+      position: static;
+      padding-top: 0.75rem;
+      padding-bottom: 0.5rem;
+      background: rgba(0, 0, 0, 0.65);
+      color: #f5f5f5;
+    }
+  }
+}
+
+$carousel-radius: 0.75rem;
+
+.carousel {
+  position: relative;
+  margin-bottom: 2rem;
+  line-height: 1;
+}
+
+.carousel img {
+  border-radius: $carousel-radius;
+}
+
+.carousel .carousel-caption {
+  border-radius: 0 0 $carousel-radius $carousel-radius;
+}
+
+.carousel h4 {
+  font-family: $body-font-family
+}
+
+.carousel {
+  position: relative;
+  margin-bottom: 20px;
+  line-height: 1
+}
+
+.carousel-inner {
+  overflow: hidden;
+  width: 100%;
+  position: relative
+}
+
+.carousel-inner>.item {
+  display: none;
+  position: relative;
+  transition: 0.6s ease-in-out left
+}
+
+.carousel-inner>.item>img,
+.carousel-inner>.item>a>img {
+  display: block;
+  line-height: 1
+}
+
+.carousel-inner>.active,
+.carousel-inner>.next,
+.carousel-inner>.prev {
+  display: block
+}
+
+// .carousel-inner>.active {
+//   left: 0
+// }
+
+.carousel-inner>.next,
+.carousel-inner>.prev {
+  position: absolute;
+  top: 0;
+  width: 100%
+}
+
+.carousel-inner>.next {
+  left: 100%
+}
+
+.carousel-inner>.prev {
+  left: -100%
+}
+
+.carousel-inner>.next.left,
+.carousel-inner>.prev.right {
+  left: 0
+}
+
+.carousel-inner>.active.left {
+  left: -100%
+}
+
+.carousel-inner>.active.right {
+  left: 100%
+}
+
+.carousel-control {
+  position: absolute;
+  top: 40%;
+  left: 2rem;
+  width: 4rem;
+  height: 4rem;
+  font-size: 3rem;
+  color: #ffffff;
+  text-align: center;
+  background: #222222;
+  border: 0.3rem solid #ffffff;
+  border-radius: 2rem;
+  opacity: 0.5;
+  filter: alpha(opacity=50)
+}
+
+.carousel-control.right {
+  left: auto;
+  right: 15px
+}
+
+.carousel-control:hover, .carousel-control:focus {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90)
+}
+
+.carousel-indicators {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 5;
+  margin: 0;
+  list-style: none;
+  height: 2rem;
+  width: 10rem;
+}
+
+.carousel-indicators li {
+  float: left;
+  width: 1rem;
+  height: 1rem;
+  margin: 0.3rem;
+  // text-indent: -999px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: $carousel-radius;
+}
+
+.carousel-indicators li.active {
+  width: 1rem;
+  height: 1rem;
+  margin: 0.3rem;
+  background-color: #fff;
+}
+
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2rem;
+  background: #333333;
+  background: rgba(0, 0, 0, 0.75);
+  text-align: left;
+}
+
+.carousel-caption h4,
+.carousel-caption p {
+  color: #ffffff;
+  line-height: 20px
+}
+
+.carousel-caption h4 {
+  margin: 0 0 5px
+}
+
+.carousel-caption p {
+  margin-bottom: 0
+}
+
+#main-content .alert {
+  margin-bottom: 1rem;
 }
 
 // --- Футер ---
 #footer {
-  margin-top: 50px;
+  margin: 5rem auto;
+  // margin-top: 5rem;
   font-size: 90%;
   color: #999;
   text-align: center;
@@ -160,9 +387,6 @@ article img, img.img-polaroid {
 
 // Пиксельный бейдж CC: без сглаживания, чёткие пиксели (без изменения размера)
 .footer-license-badge {
-  margin-right: 10px;
-  margin-bottom: 4px;
-  border: 0;
   vertical-align: middle;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;

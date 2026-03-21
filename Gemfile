@@ -10,10 +10,10 @@ gem 'carrierwave', '~> 3.1'
 gem 'ckeditor', '~> 5.1'
 gem 'devise', '~> 4.9'
 gem 'font-awesome-rails'
-# Default gem в Ruby 3.3+ — зафиксировать в bundle, иначе конфликт «already activated logger 1.7.0» с lockfile на 1.6.x
-gem 'logger', '>= 1.6.0'
+# Default gem в Ruby 3.3: до загрузки bundler уже активирован stdlib logger 1.6.0 — другая версия из lockfile даёт Gem::LoadError
+gem 'logger', '1.6.0'
 gem 'mini_magick', '~> 5.1'
-gem 'mysql2', '~> 0.5.6'
+gem 'mysql2', '~> 0.5.7'
 gem 'puma', '~> 6.4'
 gem 'rails_admin', '~> 3.3'
 gem 'rails-i18n', '~> 7.0', '>= 7.0.1'
