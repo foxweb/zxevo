@@ -121,6 +121,12 @@ article header time {
   font-weight: 200;
   color: #ffc40d;
   text-shadow: 0.1rem 0.1rem 0.05rem rgb(66, 66, 66);
+
+  &:hover,
+  &:focus {
+    color: #ffc40d;
+    text-decoration: none;
+  }
 }
 
 .navbar-default {
