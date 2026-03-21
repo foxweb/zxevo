@@ -33,8 +33,30 @@ h1 {
 
 $body-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
 
+// Радуга (как в public/images/rainbow.png): 4 равные полосы, без сглаживания между цветами
+$rainbow-opacity: 0.90;
+$rainbow-0: transparent;
+$rainbow-1: rgba(255, 2, 1, $rainbow-opacity);
+$rainbow-2: rgba(255, 255, 29, $rainbow-opacity);
+$rainbow-3: rgba(0, 255, 28, $rainbow-opacity);
+$rainbow-4: rgba(2, 255, 255, $rainbow-opacity);
+$rainbow-5: transparent;
+$rainbow-angle: 116.57deg;
+
+@mixin rainbow-four-stripes($angle: $rainbow-angle) {
+  background-image: linear-gradient(
+    $angle,
+    $rainbow-0 0% 40%,
+    $rainbow-1 40% 45%,
+    $rainbow-2 45% 50%,
+    $rainbow-3 50% 55%,
+    $rainbow-4 55% 60%,
+    $rainbow-5 60% 100%
+  );
+}
+
 body {
-  font-family: $body-font-family
+  font-family: $body-font-family;
 }
 
 h2 a, h3 a {
@@ -113,8 +135,11 @@ article header time {
 }
 
 .navbar-default .container {
-  image-rendering: pixelated;
-  background: url(/images/rainbow.png) no-repeat right 1rem top 0rem;
+  // image-rendering: pixelated;
+  @include rainbow-four-stripes($rainbow-angle);
+  background-repeat: no-repeat;
+  background-position: right -5rem top 0;
+  background-size: 22rem 100%;
   height: 100%;
   overflow: hidden;
 }
