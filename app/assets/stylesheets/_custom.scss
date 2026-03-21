@@ -315,35 +315,48 @@ $carousel-radius: 0.75rem;
   filter: alpha(opacity=90)
 }
 
-.carousel-indicators {
+// Bootstrap 3: .carousel-indicators { left: 50%; width: 60%; margin-left: -30%; bottom: 10px; } —
+// сбрасываем и центрируем через #id (выше специфичность, чем у .carousel-indicators)
+#homecarousel .carousel-indicators {
   position: absolute;
   top: 2rem;
-  left: 2rem;
-  z-index: 5;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  z-index: 15;
+  width: auto;
+  max-width: none;
   margin: 0;
+  padding: 0;
   list-style: none;
-  height: 2rem;
-  width: 10rem;
+  text-align: center;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
-.carousel-indicators li {
-  float: left;
+#homecarousel .carousel-indicators li {
+  float: none;
+  display: block;
   width: 1rem;
   height: 1rem;
   margin: 0.3rem;
-  // text-indent: -999px;
+  text-indent: 0;
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: $carousel-radius;
 }
 
-.carousel-indicators li.active {
+#homecarousel .carousel-indicators li.active {
   width: 1rem;
   height: 1rem;
   margin: 0.3rem;
   background-color: #fff;
 }
 
-.carousel-caption {
+#homecarousel .carousel-caption {
   position: absolute;
   left: 0;
   right: 0;
