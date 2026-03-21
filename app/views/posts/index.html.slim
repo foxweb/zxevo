@@ -6,7 +6,7 @@ h1=t '.title'
   article
     header
       h2= link_to post.title, post_path(post)
-      time(datetime== post.iso_date pubdate data-updated="true")= post.russian_date
+      time(datetime=post.iso_date pubdate data-updated="true")= post.russian_date
     == post.body
     footer
       = link_to 'Читать полностью →', post_path(post), rel: 'full-article'

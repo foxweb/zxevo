@@ -11,6 +11,7 @@ ru:
     misc:
       search: "Поиск"
       filter: "Фильтрация"
+      reset_filters: "Сбросить фильтры"
       refresh: "Обновить"
       show_all: "Показать все"
       add_filter: "Добавить фильтр..."

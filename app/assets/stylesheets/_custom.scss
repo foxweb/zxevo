@@ -1,0 +1,87 @@
+// Переменные Bootstrap (переопределить до @import "bootstrap" в application.css.scss при необходимости)
+// Сейчас импорт в application.css.scss без переопределений; при необходимости раскомментируйте и перенесите в application.css.scss перед @import "bootstrap"
+
+// Шрифт и базовые переменные (для справки):
+// $font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+// $navbar-height: 50px;
+// $navbar-default-bg: #222;
+// $navbar-default-color: #ddd;
+// $navbar-default-brand-color: #ffd200;
+
+@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700&subset=latin,cyrillic");
+
+// --- Базовая разметка ---
+#root {
+  clear: both;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-bottom: 30pt;
+  max-width: 960px;
+  width: 100%;
+  background: #fff;
+}
+
+#root > .container {
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
+
+// Совместимость с разметкой на классах Bootstrap 2 (.span3, .span9)
+.row .span3 {
+  width: 25%;
+  float: left;
+  padding-right: 24px;
+}
+.row .span9 {
+  width: 72%;
+  float: left;
+  min-height: 1px;
+}
+
+// --- Хедер ---
+.navbar-top .navbar-inner .container a {
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+}
+
+// --- Сайдбар: блоки .well с более заметным скруглением (у Bootstrap 3 по умолчанию ~4px) ---
+.well.sidebar-nav {
+  border-radius: 12px;
+}
+
+// --- Сайдбар: компактнее строки, иконки в одной линии с текстом ---
+.sidebar-nav .nav-list > li > a {
+  display: flex;
+  align-items: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  line-height: 1.25;
+  min-height: 0;
+}
+
+.sidebar-nav .nav-list > li {
+  margin-bottom: 0;
+}
+
+.sidebar-nav .nav-list .nav-header {
+  padding-top: 6px;
+  padding-bottom: 4px;
+  line-height: 1.2;
+}
+
+.sidebar-nav .nav-list li a i.fa {
+  flex-shrink: 0;
+  width: 1.2em;
+  margin-right: 8px;
+  text-align: center;
+  line-height: 1;
+  float: none;
+}
+
+// --- Футер ---
+#footer {
+  margin-top: 50px;
+  font-size: 90%;
+  color: #999;
+  text-align: center;
+}

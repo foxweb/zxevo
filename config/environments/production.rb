@@ -22,8 +22,8 @@ Rails.application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  # Terser — ES2020+ (optional chaining и т.д.); Uglifier с этим не справляется.
+  config.assets.js_compressor = Terser.new
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -40,11 +40,23 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Set to :debug to see everything in the log.
-  config.log_level = :info
+  # Уровень: LOG_LEVEL=debug|info|warn|error|fatal (по умолчанию info)
+  log_level = ENV.fetch('LOG_LEVEL', 'info').downcase.to_sym
+  config.log_level = %i[debug info warn error fatal].include?(log_level) ? log_level : :info
 
   # Prepend all log lines with the following tags.
-  # config.log_tags = [ :subdomain, :uuid ]
+  config.log_tags = [:request_id]
+
+  # Docker / Kubernetes: логи в STDOUT для `docker logs` / kubectl logs
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger = ActiveSupport::Logger.new($stdout)
+    logger.level = {
+      debug: Logger::DEBUG, info: Logger::INFO, warn: Logger::WARN,
+      error: Logger::ERROR, fatal: Logger::FATAL
+    }.fetch(config.log_level, Logger::INFO)
+    logger.formatter = ::Logger::Formatter.new
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)

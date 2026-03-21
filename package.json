@@ -1,0 +1,13 @@
+{
+  "name": "zxevo",
+  "private": true,
+  "scripts": {
+    "build:rails_admin": "npx esbuild node_modules/rails_admin/src/rails_admin/base.js --bundle --outfile=vendor/assets/javascripts/rails_admin_application_bundle.js --format=iife --platform=browser --loader:.js=jsx"
+  },
+  "dependencies": {
+    "rails_admin": "3.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

@@ -1,6 +1,7 @@
 Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w[
+  ckeditor/rails_admin_config.js
   rails_admin/application.js
   rails_admin/application.css
   rails_admin/*.eot

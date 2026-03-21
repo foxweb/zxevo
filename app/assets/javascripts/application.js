@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
+//
+// Не используем require_tree: подкаталог rails_admin/ — отдельный манифест для /admin
+// (см. javascript_include_tag "rails_admin/application"). Доп. скрипты сайта: //= require имя_файла

@@ -12,7 +12,7 @@ html
     /[if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", media: "all"
-    = auto_discovery_link_tag(:rss, 'https://zx.rediron.ru/rss', title: 'Блог ZX Evolution')
+    = auto_discovery_link_tag(:rss, rss_url, title: 'Блог ZX Evolution')
     link(href="/images/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144")
     link(href="/images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
     link(href="/images/apple-touch-icon-72x72.png"   rel="apple-touch-icon" sizes="72x72")
@@ -32,32 +32,32 @@ html
               - li_class = current_page?(homepage_path) ? 'active' : ''
               li class=li_class
                 = link_to(homepage_path) do
-                  i.icon-home
+                  i.fa.fa-home
                   |  Старт
               li= link_to(blog_path) do
-                  i.icon-list
+                  i.fa.fa-list
                   =t 'posts.index.title'
               li= link_to(static_path(slug: 'projects')) do
-                  i.icon-folder-open
+                  i.fa.fa-folder-open
                   |  Проекты NedoPC
               li= link_to(static_path(slug: 'people')) do
-                  i.icon-user
+                  i.fa.fa-user
                   |  Люди NedoPC
               li= link_to(static_path(slug: 'about')) do
-                  i.icon-trash
+                  i.fa.fa-trash-o
                   |  Всякая всячина
 
           .well.sidebar-nav
             ul.nav.nav-list
               li.nav-header ZX Evo — быстрый старт
               li= link_to(static_path(slug: 'faq')) do
-                  i.icon-question-sign
+                  i.fa.fa-question-circle
                   | FAQ: вопросы и ответы
               li= link_to(static_path(slug: 'manuals')) do
-                  i.icon-file-text
+                  i.fa.fa-file-text-o
                   | Документация по ZX Evo
               li= link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank') do
-                  i.icon-cloud-download
+                  i.fa.fa-cloud-download
                   | SVN-архив исходников
 
           .well.sidebar-nav
@@ -65,7 +65,7 @@ html
               li.nav-header Свежие посты
               -fresh_posts.each do |post|
                 li= link_to(post_path(post)) do
-                    i.icon-edit
+                    i.fa.fa-edit
                     = post.title
 
         .span9
@@ -86,16 +86,11 @@ html
              |  в&nbsp;2013&nbsp;году.
              |  Исходники&nbsp;на&nbsp;
              =link_to '//github.com/foxweb/zxevo' do
-              i.icon-github
+              i.fa.fa-github
               | &nbsp;Github
              |.
 
     = javascript_include_tag "application"
     - if Rails.env == 'production'
       javascript:
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-41636407-1', 'rediron.ru');ga('send', 'pageview');
-
         var disqus_shortname = 'foxwwweb';(function(){var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = '//' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());

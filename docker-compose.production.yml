@@ -1,0 +1,64 @@
+# Пример production-стека: образ из multi-stage Dockerfile (target: production),
+# без монтирования исходников, с volume для загрузок CarrierWave.
+#
+# Подготовка:
+#   export SECRET_KEY_BASE=$(openssl rand -hex 64)
+#   # задать MYSQL_ROOT_PASSWORD, DB_PASSWORD, DB_USERNAME и т.д. — см. .env.production.example
+#
+# Запуск:
+#   docker compose -f docker-compose.production.yml --env-file .env.production up -d --build
+#
+# Логи:
+#   docker compose -f docker-compose.production.yml logs -f app
+
+services:
+  # Порт 3306 намеренно не публикуем — доступ к MySQL только из сети Compose
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME:-zxevo_production}
+      MYSQL_USER: ${DB_USERNAME:-zxevo}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: production
+      APP_URL: ${APP_URL:?set APP_URL}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?set SECRET_KEY_BASE}
+      DB_HOST: db
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USERNAME: ${DB_USERNAME:-zxevo}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME:-zxevo_production}
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_MAX_THREADS: ${RAILS_MAX_THREADS:-5}
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-0}
+      PUMA_PORT: ${PUMA_PORT:-3000}
+      # true — db:migrate при каждом старте; для отдельного job миграций: false
+      RUN_DB_MIGRATE_ON_START: ${RUN_DB_MIGRATE_ON_START:-true}
+    ports:
+      - "${APP_PUBLISH_PORT:-3000}:3000"
+    volumes:
+      - uploads_prod:/app/public/uploads
+
+volumes:
+  mysql_data_prod:
+  uploads_prod:

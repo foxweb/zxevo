@@ -25,10 +25,20 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_user)
 
+  # CKEditor 4: виджет подключается из rails_admin/application.js (событие rails_admin.dom_ready).
+  # config_js — app/assets/javascripts/ckeditor/rails_admin_config.js.
+  # URL нужно считать в рендере (bindings[:view].asset_path), иначе в initializer asset_path
+  # может дать неверный путь; старый /ckeditor/rails_admin_config.js из public больше не существует.
+  ck_editor_config_js = proc do
+    bindings[:view].asset_path('ckeditor/rails_admin_config.js')
+  end
+
   config.model Post do
     edit do
       field :title
-      field :body, :ck_editor
+      field :body, :ck_editor do
+        config_js ck_editor_config_js
+      end
       field :user do
         default_value do
           bindings[:view]._current_user.id
@@ -41,7 +51,9 @@ RailsAdmin.config do |config|
     edit do
       field :slug
       field :title
-      field :body, :ck_editor
+      field :body, :ck_editor do
+        config_js ck_editor_config_js
+      end
       field :comments_on
       field :is_visible
       field :user do
@@ -52,11 +64,10 @@ RailsAdmin.config do |config|
     end
   end
 
-  # If you want to track changes on your models:
-  config.audit_with :history, 'User'
-
-  # Or with a PaperTrail: (you need to install it first)
-  # config.audit_with :paper_trail, 'User'
+  # Аудит: в RailsAdmin 3.x нет встроенного :history — без адаптера будет NoMethodError (nil.new).
+  # Вариант с версионированием — gem paper_trail и:
+  #   config.audit_with :paper_trail, 'User', 'PaperTrail::Version'
+  # config.audit_with :history, 'User'  # устарело, не работает в 3.x
 
   # Display empty fields in show views:
   # config.compact_show_view = false

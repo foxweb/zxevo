@@ -10,7 +10,7 @@ footer
   | Написал&nbsp;
   = @post.user.name
   | &nbsp;
-  time(datetime== @post.iso_date pubdate data-updated="true")= @post.russian_date
+  time(datetime=@post.iso_date pubdate data-updated="true")= @post.russian_date
   hr
 
 = render 'comments' if @post.comments_on

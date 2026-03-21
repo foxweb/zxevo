@@ -10,5 +10,8 @@ module Zxevo
     config.load_defaults 6.1
     config.time_zone = 'Moscow'
     config.i18n.default_locale = :ru
+
+    # Канонический URL сайта (без завершающего /). RSS, Disqus, абсолютные ссылки.
+    config.x.app_url = ENV.fetch('APP_URL', 'http://localhost:3000').sub(%r{/\z}, '')
   end
 end

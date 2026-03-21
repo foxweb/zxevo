@@ -77,3 +77,7 @@ pickle-email-*.html
 public/uploads
 
 .env.local
+.env.production
+
+# npm (сборка RailsAdmin JS)
+/node_modules/

@@ -7,7 +7,7 @@ header
 
 footer
   | Обновление&nbsp;
-  time(datetime== @page.iso_date pubdate data-updated="true")= @page.russian_date
+  time(datetime=@page.iso_date pubdate data-updated="true")= @page.russian_date
   hr
 
 = render 'comments' if @page.comments_on

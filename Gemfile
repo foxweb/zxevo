@@ -4,7 +4,8 @@ ruby '3.3.4'
 
 gem 'rails', '~> 6.1.7', '>= 6.1.7.10'
 
-gem 'bcrypt'
+# >= 3.1.12: совместимость с libxcrypt (Docker/Ubuntu); иначе Password.create → InvalidHash
+gem 'bcrypt', '~> 3.1', '>= 3.1.20'
 gem 'carrierwave', '~> 3.1'
 gem 'ckeditor', '~> 5.1'
 gem 'concurrent-ruby', '~> 1.3'
@@ -30,7 +31,7 @@ gem 'coffee-rails', '~> 5.0'
 gem 'execjs'
 gem 'jquery-rails', '~> 4.6'
 gem 'sassc-rails'
-gem 'uglifier', '>= 4.2'
+gem 'terser', '~> 1.2'
 
 group :development do
   gem 'better_errors', '~> 2.10'

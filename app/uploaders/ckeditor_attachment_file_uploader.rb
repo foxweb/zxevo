@@ -28,8 +28,16 @@ class CkeditorAttachmentFileUploader < CarrierWave::Uploader::Base
   # end
 
   # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
   def extension_white_list
     Ckeditor.attachment_file_types
+  end
+
+  # CarrierWave 3 не всегда заполняет колонку data_content_type (ckeditor ожидает её в БД).
+  def extract_size
+    super
+    return unless model.respond_to?(:data_content_type=)
+
+    ct = file.content_type
+    model.data_content_type = ct if ct.present?
   end
 end

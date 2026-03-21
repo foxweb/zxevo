@@ -1,4 +1,14 @@
-/*
- *= require_tree .
- *= require_self
- */
+// Bootstrap for Sass — https://github.com/twbs/bootstrap-sass
+// "bootstrap-sprockets" must be imported before "bootstrap" for the icon fonts to work.
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Optional: override Bootstrap variables before @import "bootstrap", e.g.:
+// $navbar-default-bg: #312312;
+// $brand-primary: #08c;
+
+// Font Awesome (иконки в сайдбаре и футере)
+@import "font-awesome";
+
+// Свои стили (шрифты, сетка, сайдбар, карусель и т.д.)
+@import "custom";

@@ -1,8 +1,10 @@
 class Post < ActiveRecord::Base
+  include RussianLocalizedDatetime
+
   belongs_to :user
 
   def link
-    "https://zx.rediron.ru/posts/#{id}"
+    Rails.application.routes.url_helpers.post_url(self)
   end
 
   def comments_on
@@ -17,7 +19,9 @@ class Post < ActiveRecord::Base
     created_at.strftime('%FT%T%:z')
   end
 
-  def russian_date
-    Russian.strftime(created_at, '%d %B %Y, %H:%M')
+  private
+
+  def russian_date_source
+    created_at
   end
 end
