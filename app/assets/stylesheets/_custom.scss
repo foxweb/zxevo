@@ -12,70 +12,138 @@
 
 // --- Базовая разметка ---
 #root {
-  clear: both;
-  min-height: 100vh;
+  // // clear: both;
+  // min-height: 100vh;
+  // margin: 0 auto;
+  // padding-bottom: 30pt;
+  // max-width: 100rem;
+}
+
+#root.container {
+  width: 118rem;
   margin: 0 auto;
-  padding-bottom: 30pt;
-  max-width: 960px;
-  width: 100%;
-  background: #fff;
+  padding: 0;
 }
 
-#root > .container {
-  padding-left: 0;
-  padding-right: 0;
-  width: 100%;
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+  font-family: "PT Sans";
+  font-weight: bold;
+  color: inherit;
+  text-rendering: optimizelegibility;
 }
 
-// Совместимость с разметкой на классах Bootstrap 2 (.span3, .span9)
-.row .span3 {
-  width: 25%;
-  float: left;
-  padding-right: 24px;
-}
-.row .span9 {
-  width: 72%;
-  float: left;
-  min-height: 1px;
+h2 a, h3 a {
+  color: black;
+  text-transform: none;
+  line-height: 2.4rem;
 }
 
-// --- Хедер ---
-.navbar-top .navbar-inner .container a {
+a {
+  text-decoration: none;
+}
+
+article header h2 a:hover {
+  color: rgb(179,0,0);
+}
+
+article header {
+  margin-bottom: 1.5rem;
+}
+
+article header time {
+  color: #999999;
+  font-size: 1.3rem;
+}
+
+// --- Хедер (Bootstrap 3: navbar-default, navbar-header, navbar-brand) ---
+.navbar.navbar-top.navbar-default {
+  border-radius: 0.75rem;
+  height: 4.2875rem; // 68.6px / 16 = 4.2875rem
+  height: 80px;
+  color: #333333;
+  margin-top: 1.5rem;
+}
+
+.navbar-top .navbar-brand {
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: 20pt;
+  image-rendering: pixelated;
+  background: url(/images/zxcat-back-logo.png) no-repeat 20pt 10pt;
+  padding-left: 80pt;
+  padding-top: 20pt;
+  height: 100%;
+  float: left;
+  display: block;
+  font-weight: 200;
+  color: #ffc40d;
+  text-shadow: 0.1rem 0.1rem 0.05rem rgb(66, 66, 66);
+}
+
+.navbar-default {
+  background-color: #333;
+  background-image: linear-gradient(to bottom, #393939, #111111);
+  background-repeat: repeat-x;
+}
+
+.navbar-default .container {
+  image-rendering: pixelated;
+  background: url(/images/rainbow.png) no-repeat right 1rem top 0rem;
+  height: 100%;
+  overflow: hidden;
 }
 
 // --- Сайдбар: блоки .well с более заметным скруглением (у Bootstrap 3 по умолчанию ~4px) ---
 .well.sidebar-nav {
-  border-radius: 12px;
+  border-radius: 0.75rem;
 }
 
-// --- Сайдбар: компактнее строки, иконки в одной линии с текстом ---
-.sidebar-nav .nav-list > li > a {
+// --- Сайдбар: nav-pills.nav-stacked (Bootstrap 3), компактные строки, иконки + текст ---
+.sidebar-nav .nav.nav-pills.nav-stacked > li > a {
   display: flex;
   align-items: center;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding: 0.4rem 0.25rem;
   line-height: 1.25;
   min-height: 0;
+  border-radius: 0;
+  text-decoration: none;
+  color: red;
+}
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover,
+.nav-pills>li.active>a:focus {
+  background-color: inherit;
 }
 
-.sidebar-nav .nav-list > li {
+.sidebar-nav .nav.nav-pills.nav-stacked > li {
   margin-bottom: 0;
 }
 
-.sidebar-nav .nav-list .nav-header {
-  padding-top: 6px;
-  padding-bottom: 4px;
+.sidebar-nav .nav.nav-pills.nav-stacked > li.nav-header {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
   line-height: 1.2;
+  font-size: 1.25rem;
+  color: #999999;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.sidebar-nav .nav-list li a i.fa {
+.sidebar-nav .nav.nav-pills.nav-stacked li a i.fa {
   flex-shrink: 0;
-  width: 1.2em;
-  margin-right: 8px;
+  align-self: flex-start;
+  width: 1em;
+  margin-right: 0.5rem;
   text-align: center;
   line-height: 1;
-  float: none;
+  color: gray;
+}
+
+article img, img.img-polaroid {
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 // --- Футер ---
@@ -84,4 +152,20 @@
   font-size: 90%;
   color: #999;
   text-align: center;
+}
+
+#footer .footer-credits {
+  margin: 0;
+}
+
+// Пиксельный бейдж CC: без сглаживания, чёткие пиксели (без изменения размера)
+.footer-license-badge {
+  margin-right: 10px;
+  margin-bottom: 4px;
+  border: 0;
+  vertical-align: middle;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
 }

@@ -1,16 +1,17 @@
 doctype 5
-html
+html lang="ru"
   head
     meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover")
+    meta(name="theme-color" content="#ffffff")
     meta(name="apple-mobile-web-app-capable" content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style" content="default")
+    meta(name="mobile-web-app-capable" content="yes")
     meta(name="google-site-verification" content="Y15DygfePu3jrAlJWq8AUz97fxV6JxYWqVebuEL1kuk")
     meta(name="yandex-verification" content="7a0cebee2102ee9e")
     title= (content_for?(:title) ? yield(:title) + ' — ' : '') + "Сайт о компьютере ZX Evolution"
     = csrf_meta_tags
-    /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", media: "all"
     = auto_discovery_link_tag(:rss, rss_url, title: 'Блог ZX Evolution')
     link(href="/images/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144")
@@ -20,14 +21,16 @@ html
     link(href="/favicon.png" rel="shortcut icon")
   body
     .container#root
-      .navbar.navbar-top
-        .navbar-inner
-          .container= link_to 'Сайт о компьютере ZX Evolution', homepage_path, class: 'brand'
+      header.site-header role="banner"
+        nav.navbar.navbar-default.navbar-top role="navigation" aria-label="Шапка сайта"
+          .container
+            .navbar-header
+              = link_to 'Сайт о компьютере ZX Evolution', homepage_path, class: 'navbar-brand', rel: 'home'
 
       .row
-        .span3
-          .well.sidebar-nav
-            ul.nav.nav-list
+        aside.col-xs-12.col-md-3 role="complementary" aria-label="Навигация по сайту"
+          nav.well.sidebar-nav aria-label="Что тут есть?"
+            ul.nav.nav-pills.nav-stacked
               li.nav-header Что тут есть?
               - li_class = current_page?(homepage_path) ? 'active' : ''
               li class=li_class
@@ -47,8 +50,8 @@ html
                   i.fa.fa-trash-o
                   |  Всякая всячина
 
-          .well.sidebar-nav
-            ul.nav.nav-list
+          nav.well.sidebar-nav aria-label="ZX Evo — быстрый старт"
+            ul.nav.nav-pills.nav-stacked
               li.nav-header ZX Evo — быстрый старт
               li= link_to(static_path(slug: 'faq')) do
                   i.fa.fa-question-circle
@@ -56,39 +59,39 @@ html
               li= link_to(static_path(slug: 'manuals')) do
                   i.fa.fa-file-text-o
                   | Документация по ZX Evo
-              li= link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank') do
+              li= link_to('https://code.google.com/p/pentevo/source/browse/', target: '_blank', rel: 'noopener noreferrer') do
                   i.fa.fa-cloud-download
                   | SVN-архив исходников
 
-          .well.sidebar-nav
-            ul.nav.nav-list
+          nav.well.sidebar-nav aria-label="Свежие посты блога"
+            ul.nav.nav-pills.nav-stacked
               li.nav-header Свежие посты
               -fresh_posts.each do |post|
                 li= link_to(post_path(post)) do
                     i.fa.fa-edit
                     = post.title
 
-        .span9
+        main.col-xs-12.col-md-9#main-content role="main"
           = bootstrap_flash
           = yield
 
       #root_footer
 
-    footer#footer
+    footer#footer role="contentinfo"
       .container
         .row
-          .span9
-            .container
-             =link_to 'https://creativecommons.org/licenses/by-nc/3.0/deed.ru' do
-                =image_tag "https://i.creativecommons.org/l/by-nc/3.0/80x15.png", { alt: "Creative Commons License", style: "margin-right:10px;margin-bottom:4px; border: 0;", id: "licensebutton_slim" }
-             |  Сайт&nbsp;сделал&nbsp;
-             =link_to 'foxweb', '//kurepin.com/'
-             |  в&nbsp;2013&nbsp;году.
-             |  Исходники&nbsp;на&nbsp;
-             =link_to '//github.com/foxweb/zxevo' do
-              i.fa.fa-github
-              | &nbsp;Github
-             |.
+          .col-md-9
+            p.footer-credits
+              = link_to 'https://creativecommons.org/licenses/by-nc/3.0/deed.ru', rel: 'license' do
+                = image_tag "https://i.creativecommons.org/l/by-nc/3.0/80x15.png", alt: "Лицензия Creative Commons BY-NC 3.0", class: "footer-license-badge", id: "licensebutton_slim"
+              |  Сайт&nbsp;сделал&nbsp;
+              = link_to 'foxweb', '//kurepin.com/'
+              |  в&nbsp;2013&nbsp;году.
+              |  Исходники&nbsp;на&nbsp;
+              = link_to '//github.com/foxweb/zxevo', rel: 'noopener noreferrer' do
+                i.fa.fa-github
+                | &nbsp;Github
+              |.
 
     = javascript_include_tag "application"
     - if Rails.env == 'production'
