@@ -19,8 +19,8 @@ gem 'rails_admin', '~> 3.3'
 gem 'rails-i18n', '~> 7.0', '>= 7.0.1'
 gem 'slim-rails', '~> 3.7'
 # Sprockets 4 требует app/assets/config/manifest.js; на 3.x остаётся текущая схема ассетов
-gem 'sprockets', '~> 3.7'
-gem 'sprockets-rails', '~> 2.3'
+gem 'sprockets', '~> 4.2', '>= 4.2.0'
+gem 'sprockets-rails', '~> 3.0', '>= 3.0.0'
 gem 'turbolinks', '~> 5.2'
 
 # bootstrap and css stuff
