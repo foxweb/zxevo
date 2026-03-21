@@ -1,49 +1,41 @@
 h1 ZX Evolution — эволюция легенды
 p.lead Компьютер-конструктор ZX Evolution — наш ответ беспомощным эмуляторам
 
+ruby:
+  @carousel_slides = [
+    { img: '/images/carousel/zxevo.jpg', title: 'Компьютер ZX Evolution', body: 'Главное достоинство платы&nbsp;&mdash; настоящие процессор Zilog Z80, контроллер дисковода КР181ВГ93 и&nbsp;звуковой чип Yamaha. На&nbsp;других платах всё это эмулируется в&nbsp;ПЛИС, что приводит к&nbsp;ошибкам и&nbsp;несовместимостям с&nbsp;оригинальной системой.' },
+    { img: '/images/carousel/zxevoos.jpg', title: 'Операционная система EVO Reset Service', body: 'Базовая ОС&nbsp;компьютера предоставляет доступ ко&nbsp;всем аппаратным возможностям, имеет часы и&nbsp;энергонезависимую память на&nbsp;батарейке. В&nbsp;ней есть поддержка 4&nbsp;виртуальных или реальных дисководов, а&nbsp;также простой файловый браузер.' },
+    { img: '/images/carousel/back.jpg', title: 'Вариант сборки ZX Evolution в корпусе', body: 'Корпуса стандарта MiniITX идеально подходит для сборки полноценного системного блока с&nbsp;жёстким диском и&nbsp;дисководом&nbsp;3,5&Prime;. Долой висящие кабели и&nbsp;навесной монтаж!' },
+    { img: '/images/carousel/cmos.jpg', title: 'Экран настроек CMOS', body: 'Здесь можно настроить часы, календарь, порядок и&nbsp;режимы загрузки компьютера. Всё почти как на&nbsp;обычном PC. Не&nbsp;нужно перенастраивать компьютер заново при включении или пользоваться паяльником и&nbsp;перемычками.' },
+    { img: '/images/carousel/exolon.jpg', title: 'Легендарная игра Exolon!', body: 'Моментальная загрузка игр и&nbsp;программ с&nbsp;образов ленты TAP и&nbsp;образов дисков TRD. Также поддерживается загрузка реального звукового сигнала с&nbsp;ленты, эмуляторов или даже MP3-плеера.' },
+    { img: '/images/carousel/ay.jpg', title: 'Редактирование изображения в Art Studio', body: 'Благодаря поддержке обычных мышей с&nbsp;разъёмом PS/2 стало гораздо легче рисовать картинки к&nbsp;демам :)' },
+  ]
+  @carousel_n = @carousel_slides.size
+
 #homecarousel.carousel.slide
+  - @carousel_slides.each_with_index do |_slide, i|
+    - if i.zero?
+      input.sr-only type="radio" name="homecarousel" id="hc#{i}" checked="checked"
+    - else
+      input.sr-only type="radio" name="homecarousel" id="hc#{i}"
   ol.carousel-indicators
-    li.active data-slide-to="0" data-target="#homecarousel" 
-    li data-slide-to="1" data-target="#homecarousel" 
-    li data-slide-to="2" data-target="#homecarousel"
-    li data-slide-to="3" data-target="#homecarousel" 
-    li data-slide-to="4" data-target="#homecarousel" 
-    li data-slide-to="5" data-target="#homecarousel" 
+    - @carousel_slides.each_with_index do |_slide, i|
+      li: label[for="hc#{i}"]
   /! Carousel items
   .carousel-inner
-    .active.item
-      img src='/images/carousel/zxevo.jpg'
-      .carousel-caption
-        h4 Компьютер ZX Evolution
-        p Главное достоинство платы&nbsp;&mdash; настоящие процессор Zilog Z80, контроллер дисковода КР181ВГ93 и&nbsp;звуковой чип Yamaha. На&nbsp;других платах всё это эмулируется в&nbsp;ПЛИС, что приводит к&nbsp;ошибкам и&nbsp;несовместимостям с&nbsp;оригинальной системой.
-    .item
-      img src='/images/carousel/zxevoos.jpg'
-      .carousel-caption
-        h4 Операционная система EVO Reset Service
-        p Базовая ОС&nbsp;компьютера предоставляет доступ ко&nbsp;всем аппаратным возможностям, имеет часы и&nbsp;энергонезависимую память на&nbsp;батарейке. В&nbsp;ней есть поддержка 4&nbsp;виртуальных или реальных дисководов, а&nbsp;также простой файловый браузер.
-    .item
-      img src='/images/carousel/back.jpg'
-      .carousel-caption
-        h4 Вариант сборки ZX Evolution в корпусе
-        p Корпуса стандарта MiniITX идеально подходит для сборки полноценного системного блока с&nbsp;жёстким диском и&nbsp;дисководом&nbsp;3,5&Prime;. Долой висящие кабели и&nbsp;навесной монтаж!
-    .item
-      img src='/images/carousel/cmos.jpg'
-      .carousel-caption
-        h4 Экран настроек CMOS
-        p Здесь можно настроить часы, календарь, порядок и&nbsp;режимы загрузки компьютера. Всё почти как на&nbsp;обычном PC. Не&nbsp;нужно перенастраивать компьютер заново при включении или пользоваться паяльником и&nbsp;перемычками.
-    .item
-      img src='/images/carousel/exolon.jpg'
-      .carousel-caption
-        h4 Легендарная игра Exolon!
-        p Моментальная загрузка игр и&nbsp;программ с&nbsp;образов ленты TAP и&nbsp;образов дисков TRD. Также поддерживается загрузка реального звукового сигнала с&nbsp;ленты, эмуляторов или даже MP3-плеера.
-    .item
-      img src='/images/carousel/ay.jpg'
-      .carousel-caption
-        h4 Редактирование изображения в Art Studio
-        p Благодаря поддержке обычных мышей с&nbsp;разъёмом PS/2 стало гораздо легче рисовать картинки к&nbsp;демам :)
-  /! Carousel nav
-  a.carousel-control.left data-slide="prev" href="#homecarousel"  &lsaquo;
-  a.carousel-control.right data-slide="next" href="#homecarousel"  &rsaquo;
+    .carousel-track
+      - @carousel_slides.each do |slide|
+        .item
+          img src=slide[:img]
+          .carousel-caption
+            h4 = slide[:title]
+            p== slide[:body]
+  /! Carousel nav (CSS-only: пары label для prev/next по текущему слайду)
+  .carousel-css-nav
+    - @carousel_slides.each_with_index do |_slide, i|
+      div class="carousel-css-nav-from-#{i}"
+        label.carousel-control.left[for="hc#{(i + @carousel_n - 1) % @carousel_n}"]  &lsaquo;
+        label.carousel-control.right[for="hc#{(i + 1) % @carousel_n}"]  &rsaquo;
 
 p.lead Почему? Да потому что:
 ul

@@ -1,12 +1,4 @@
-// Переменные Bootstrap (переопределить до @import "bootstrap" в application.css.scss при необходимости)
-// Сейчас импорт в application.css.scss без переопределений; при необходимости раскомментируйте и перенесите в application.css.scss перед @import "bootstrap"
-
-// Шрифт и базовые переменные (для справки):
-// $font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
-// $navbar-height: 50px;
-// $navbar-default-bg: #222;
-// $navbar-default-color: #ddd;
-// $navbar-default-brand-color: #ffd200;
+// Переопределения переменных Bootstrap — в application.css.scss до @import "bootstrap".
 
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap");
 
@@ -32,6 +24,9 @@ h1 {
 }
 
 $body-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+$link-color: red;
+$link-hover-color: rgb(179, 0, 0);
+$border-radius: 0.75rem;
 
 // Радуга (как в public/images/rainbow.png): 4 равные полосы, без сглаживания между цветами
 $rainbow-opacity: 0.90;
@@ -67,9 +62,9 @@ h2 a, h3 a {
 
 a {
   text-decoration: none;
-  color: red;
+  color: $link-color;
   &:hover {
-    color: rgb(179,0,0);
+    color: $link-hover-color;
   }
 }
 
@@ -93,7 +88,7 @@ a {
 }
 
 article header h2 a:hover {
-  color: rgb(179,0,0);
+  color: $link-hover-color;
 }
 
 article header {
@@ -107,7 +102,7 @@ article header time {
 
 // --- Хедер (Bootstrap 3: navbar-default, navbar-header, navbar-brand) ---
 .navbar.navbar-top.navbar-default {
-  border-radius: 0.75rem;
+  border-radius: $border-radius;
   height: 8rem;
   color: #333333;
   margin-top: 1.5rem;
@@ -129,13 +124,10 @@ article header time {
 }
 
 .navbar-default {
-  background-color: #333;
   background-image: linear-gradient(to bottom, #393939, #111111);
-  background-repeat: repeat-x;
 }
 
 .navbar-default .container {
-  // image-rendering: pixelated;
   @include rainbow-four-stripes($rainbow-angle);
   background-repeat: no-repeat;
   background-position: right -5rem top 0;
@@ -146,7 +138,7 @@ article header time {
 
 // --- Сайдбар: блоки .well с более заметным скруглением (у Bootstrap 3 по умолчанию ~4px) ---
 .well.sidebar-nav {
-  border-radius: 0.75rem;
+  border-radius: $border-radius;
 }
 
 // --- Сайдбар: nav-pills.nav-stacked (Bootstrap 3), компактные строки, иконки + текст ---
@@ -158,11 +150,11 @@ article header time {
   min-height: 0;
   border-radius: 0;
   text-decoration: none;
-  color: red;
+  color: $link-color;
 
   &:hover,
   &:focus {
-    color: red;
+    color: $link-color;
     text-decoration: none;
   }
 
@@ -176,7 +168,7 @@ article header time {
 .sidebar-nav .nav-pills > li.active > a:hover,
 .sidebar-nav .nav-pills > li.active > a:focus {
   background-color: inherit;
-  color: red;
+  color: $link-color;
 }
 
 .sidebar-nav .nav.nav-pills.nav-stacked > li {
@@ -205,18 +197,195 @@ article header time {
 }
 
 article img, img.img-polaroid {
-  border: 0.1rem  solid #ccc;
+  border: 0.1rem solid #ccc;
   padding: 1rem;
   box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1);
 }
 
-// Карусель на главной: не вылезает за экран на узких вьюпортах
+$carousel-slide-duration: 0.6s;
+$carousel-slide-easing: ease-in-out;
+// Должно совпадать с числом слайдов в app/views/home/index.html.slim
+$carousel-slide-count: 6;
+
+// Карусель на главной: CSS-only (radio + transform). На узких экранах подпись под кадром.
 #homecarousel {
-  .carousel-inner > .item > img {
+  position: relative;
+  margin-bottom: 2rem;
+  line-height: 1;
+
+  img {
+    border-radius: $border-radius;
+  }
+
+  .carousel-inner {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    width: calc(#{$carousel-slide-count} * 100%);
+    transition: transform $carousel-slide-duration $carousel-slide-easing;
+    will-change: transform;
+  }
+
+  .carousel-track > .item {
+    display: block;
+    flex: 0 0 calc(100% / #{$carousel-slide-count});
+    position: relative;
+    left: auto;
+    transition: none;
+    backface-visibility: hidden;
+  }
+
+  .carousel-track > .item > img {
     width: 100%;
     max-width: 100%;
     height: auto;
     display: block;
+  }
+
+  @for $i from 0 through ($carousel-slide-count - 1) {
+    #hc#{$i}:checked ~ .carousel-inner .carousel-track {
+      transform: translateX(calc(-100% * #{$i} / #{$carousel-slide-count}));
+    }
+  }
+
+  .carousel-indicators {
+    position: absolute;
+    top: 2rem;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    z-index: 15;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+
+    li {
+      float: none;
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      margin: 0.3rem;
+      padding: 0;
+      border: none;
+      text-indent: 0;
+      background-color: rgba(255, 255, 255, 0.25);
+      border-radius: $border-radius;
+      cursor: pointer;
+
+      label {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 1rem;
+        margin: 0;
+        cursor: pointer;
+        text-indent: -9999px;
+        overflow: hidden;
+      }
+    }
+  }
+
+  @for $i from 0 through ($carousel-slide-count - 1) {
+    #hc#{$i}:checked ~ .carousel-indicators li:nth-child(#{$i + 1}) {
+      background-color: #fff;
+    }
+  }
+
+  .carousel-css-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
+    pointer-events: none;
+
+    [class^="carousel-css-nav-from-"] {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    label.carousel-control {
+      pointer-events: auto;
+    }
+  }
+
+  @for $i from 0 through ($carousel-slide-count - 1) {
+    #hc#{$i}:checked ~ .carousel-css-nav .carousel-css-nav-from-#{$i} {
+      display: block;
+    }
+  }
+
+  .carousel-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.75);
+    text-align: left;
+    border-radius: 0 0 $border-radius $border-radius;
+
+    h4 {
+      font-family: $body-font-family;
+      margin: 0 0 5px;
+      color: #ffffff;
+      line-height: 20px;
+    }
+
+    p {
+      margin-bottom: 0;
+      color: #ffffff;
+      line-height: 20px;
+    }
+  }
+
+  .carousel-control {
+    position: absolute;
+    top: 40%;
+    left: 2rem;
+    z-index: 20;
+    width: 4rem;
+    height: 4rem;
+    font-size: 3rem;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    background: #222222;
+    border: 0.3rem solid #ffffff;
+    border-radius: 2rem;
+    opacity: 0.5;
+    cursor: pointer;
+
+    &.right {
+      left: auto;
+      right: 15px;
+    }
+
+    &:hover,
+    &:focus {
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 0.9;
+    }
   }
 
   @media (max-width: 767px) {
@@ -230,182 +399,6 @@ article img, img.img-polaroid {
   }
 }
 
-$carousel-radius: 0.75rem;
-
-.carousel {
-  position: relative;
-  margin-bottom: 2rem;
-  line-height: 1;
-}
-
-.carousel img {
-  border-radius: $carousel-radius;
-}
-
-.carousel .carousel-caption {
-  border-radius: 0 0 $carousel-radius $carousel-radius;
-}
-
-.carousel h4 {
-  font-family: $body-font-family
-}
-
-.carousel {
-  position: relative;
-  margin-bottom: 20px;
-  line-height: 1
-}
-
-.carousel-inner {
-  overflow: hidden;
-  width: 100%;
-  position: relative
-}
-
-.carousel-inner>.item {
-  display: none;
-  position: relative;
-  transition: 0.6s ease-in-out left
-}
-
-.carousel-inner>.item>img,
-.carousel-inner>.item>a>img {
-  display: block;
-  line-height: 1
-}
-
-.carousel-inner>.active,
-.carousel-inner>.next,
-.carousel-inner>.prev {
-  display: block
-}
-
-// .carousel-inner>.active {
-//   left: 0
-// }
-
-.carousel-inner>.next,
-.carousel-inner>.prev {
-  position: absolute;
-  top: 0;
-  width: 100%
-}
-
-.carousel-inner>.next {
-  left: 100%
-}
-
-.carousel-inner>.prev {
-  left: -100%
-}
-
-.carousel-inner>.next.left,
-.carousel-inner>.prev.right {
-  left: 0
-}
-
-.carousel-inner>.active.left {
-  left: -100%
-}
-
-.carousel-inner>.active.right {
-  left: 100%
-}
-
-.carousel-control {
-  position: absolute;
-  top: 40%;
-  left: 2rem;
-  width: 4rem;
-  height: 4rem;
-  font-size: 3rem;
-  color: #ffffff;
-  text-align: center;
-  background: #222222;
-  border: 0.3rem solid #ffffff;
-  border-radius: 2rem;
-  opacity: 0.5;
-  filter: alpha(opacity=50)
-}
-
-.carousel-control.right {
-  left: auto;
-  right: 15px
-}
-
-.carousel-control:hover, .carousel-control:focus {
-  color: #ffffff;
-  text-decoration: none;
-  opacity: 0.9;
-  filter: alpha(opacity=90)
-}
-
-// Bootstrap 3: .carousel-indicators { left: 50%; width: 60%; margin-left: -30%; bottom: 10px; } —
-// сбрасываем и центрируем через #id (выше специфичность, чем у .carousel-indicators)
-#homecarousel .carousel-indicators {
-  position: absolute;
-  top: 2rem;
-  bottom: auto;
-  left: 50%;
-  right: auto;
-  z-index: 15;
-  width: auto;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: center;
-  transform: translateX(-50%);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-}
-
-#homecarousel .carousel-indicators li {
-  float: none;
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  margin: 0.3rem;
-  text-indent: 0;
-  background-color: rgba(255, 255, 255, 0.25);
-  border-radius: $carousel-radius;
-}
-
-#homecarousel .carousel-indicators li.active {
-  width: 1rem;
-  height: 1rem;
-  margin: 0.3rem;
-  background-color: #fff;
-}
-
-#homecarousel .carousel-caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 2rem;
-  background: #333333;
-  background: rgba(0, 0, 0, 0.75);
-  text-align: left;
-}
-
-.carousel-caption h4,
-.carousel-caption p {
-  color: #ffffff;
-  line-height: 20px
-}
-
-.carousel-caption h4 {
-  margin: 0 0 5px
-}
-
-.carousel-caption p {
-  margin-bottom: 0
-}
-
 #main-content .alert {
   margin-bottom: 1rem;
 }
@@ -413,7 +406,6 @@ $carousel-radius: 0.75rem;
 // --- Футер ---
 #footer {
   margin: 5rem auto;
-  // margin-top: 5rem;
   font-size: 90%;
   color: #999;
   text-align: center;
@@ -426,8 +418,6 @@ $carousel-radius: 0.75rem;
 // Пиксельный бейдж CC: без сглаживания, чёткие пиксели (без изменения размера)
 .footer-license-badge {
   vertical-align: middle;
-  image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
-  -ms-interpolation-mode: nearest-neighbor;
 }
