@@ -9,6 +9,7 @@ module Zxevo
   class Application < Rails::Application
     config.load_defaults 6.1
     config.time_zone = 'Moscow'
+    config.i18n.available_locales = %i[ru en]
     config.i18n.default_locale = :ru
 
     # Канонический URL сайта (без завершающего /). RSS, Disqus, абсолютные ссылки.

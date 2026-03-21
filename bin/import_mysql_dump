@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+# Импорт дампа MySQL. Дамп лежит на хосте; при --docker поток идёт в mysql внутри контейнера (stdin).
+#
+# Переменные: DB_NAME, MYSQL_ROOT_PASSWORD (для --docker), COMPOSE_FILE (опционально).
+# Подхватывается .env.local из корня проекта.
+#
+# Типичный случай: MySQL в Docker, файл дампа на хосте:
+#   bin/import_mysql_dump --docker ~/backups/legacy.sql
+#   bin/import_mysql_dump --docker --recreate ./tmp/dump.sql.gz
+#
+# Без Docker (клиент mysql на хосте, БД на 127.0.0.1):
+#   DB_HOST=127.0.0.1 bin/import_mysql_dump ./dump.sql
+#
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+if [[ -f .env.local ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source .env.local
+  set +a
+fi
+
+usage() {
+  cat <<'EOF'
+Импорт дампа MySQL в БД приложения.
+
+Использование:
+  bin/import_mysql_dump --docker [--recreate] <файл.sql|файл.sql.gz>   # дамп на хосте → MySQL в Docker
+  bin/import_mysql_dump [--recreate] <файл.sql>                         # клиент mysql на хосте (DB_HOST и т.д.)
+
+  --docker     Поток с хоста в контейнер БД (docker compose exec -T … mysql).
+               Пароль root: MYSQL_ROOT_PASSWORD (как в docker-compose).
+  --recreate   DROP + CREATE базы DB_NAME (utf8mb4), затем импорт.
+
+Переменные:
+  MYSQL_DOCKER_SERVICE  имя сервиса (по умолчанию: db)
+  COMPOSE_FILE          как у Docker Compose (напр. docker-compose.production.yml)
+  MYSQL_ROOT_PASSWORD   для --docker
+  DB_NAME               (по умолчанию zxevo_development)
+
+Через .env.local можно задать MYSQL_DUMP_VIA_DOCKER=1 — тогда флаг --docker не обязателен.
+EOF
+}
+
+docker_compose() {
+  if docker compose version &>/dev/null; then
+    docker compose "$@"
+  else
+    docker-compose "$@"
+  fi
+}
+
+RECREATE=0
+USE_DOCKER=0
+ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --recreate)
+      RECREATE=1
+      shift
+      ;;
+    --docker)
+      USE_DOCKER=1
+      shift
+      ;;
+    *)
+      ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ "${MYSQL_DUMP_VIA_DOCKER:-0}" == "1" ]] || [[ "${MYSQL_DUMP_VIA_DOCKER:-}" == "true" ]]; then
+  USE_DOCKER=1
+fi
+
+if [[ ${#ARGS[@]} -ne 1 ]]; then
+  echo "Ошибка: укажите один файл дампа." >&2
+  usage
+  exit 1
+fi
+
+DUMP_FILE="${ARGS[0]}"
+if [[ ! -f "$DUMP_FILE" ]]; then
+  echo "Файл не найден: $DUMP_FILE" >&2
+  exit 1
+fi
+
+# Абсолютный путь для сообщений (файл всегда на хосте)
+DUMP_FILE="$(cd "$(dirname "$DUMP_FILE")" && pwd)/$(basename "$DUMP_FILE")"
+
+DB_NAME="${DB_NAME:-zxevo_development}"
+
+if [[ "$USE_DOCKER" -eq 1 ]]; then
+  SERVICE="${MYSQL_DOCKER_SERVICE:-db}"
+  ROOT_PW="${MYSQL_ROOT_PASSWORD:-}"
+  if [[ -z "$ROOT_PW" ]]; then
+    echo "Задайте MYSQL_ROOT_PASSWORD в .env.local (пароль root в контейнере MySQL)." >&2
+    exit 1
+  fi
+
+  if ! docker_compose exec -T "$SERVICE" echo ok &>/dev/null; then
+    echo "Контейнер «$SERVICE» недоступен. Запустите: docker compose up -d" >&2
+    exit 1
+  fi
+
+  echo "Импорт через Docker (сервис «$SERVICE»), дамп на хосте: $DUMP_FILE"
+
+  mysql_docker() {
+    docker_compose exec -T -e MYSQL_PWD="$ROOT_PW" "$SERVICE" \
+      mysql -uroot --default-character-set=utf8mb4 "$@"
+  }
+
+  if [[ "$RECREATE" -eq 1 ]]; then
+    echo "Пересоздание БД «$DB_NAME»..."
+    mysql_docker -e "DROP DATABASE IF EXISTS \`$DB_NAME\`; CREATE DATABASE \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+  fi
+
+  echo "Загрузка в «$DB_NAME»..."
+  if [[ "$DUMP_FILE" == *.gz ]] || [[ "$DUMP_FILE" == *.gzip ]]; then
+    gzip -dc -- "$DUMP_FILE" | mysql_docker "$DB_NAME"
+  else
+    mysql_docker "$DB_NAME" < "$DUMP_FILE"
+  fi
+else
+  DB_HOST="${DB_HOST:-127.0.0.1}"
+  DB_PORT="${DB_PORT:-3306}"
+  DB_USERNAME="${DB_USERNAME:-root}"
+  DB_PASSWORD="${DB_PASSWORD:-}"
+
+  MYSQL=(mysql -h"$DB_HOST" -P"$DB_PORT" -u"$DB_USERNAME" -p"$DB_PASSWORD" --default-character-set=utf8mb4)
+
+  if [[ "$RECREATE" -eq 1 ]]; then
+    echo "Пересоздание БД «$DB_NAME» на $DB_HOST:$DB_PORT ..."
+    "${MYSQL[@]}" -e "DROP DATABASE IF EXISTS \`$DB_NAME\`; CREATE DATABASE \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+  fi
+
+  echo "Импорт в «$DB_NAME» из $DUMP_FILE ..."
+  if [[ "$DUMP_FILE" == *.gz ]] || [[ "$DUMP_FILE" == *.gzip ]]; then
+    gzip -dc -- "$DUMP_FILE" | "${MYSQL[@]}" "$DB_NAME"
+  else
+    "${MYSQL[@]}" "$DB_NAME" < "$DUMP_FILE"
+  fi
+fi
+
+echo "Готово."

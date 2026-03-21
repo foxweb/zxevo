@@ -57,6 +57,23 @@ docker compose exec app npm run build:rails_admin
 - Выполняет `rails db:prepare` (создание БД и миграции при первом запуске)
 - Запускает `rails server`
 
+### Импорт старого дампа MySQL
+
+Скрипт **`bin/import_mysql_dump`** подхватывает **`.env.local`**.
+
+**MySQL в Docker, дамп на хосте** (основной вариант): поток с диска хоста идёт в `mysql` внутри контейнера БД, путь к файлу — любой на вашей машине.
+
+```bash
+# из корня репозитория, контейнер db должен быть запущен (docker compose up -d)
+bin/import_mysql_dump --docker ~/Downloads/legacy.sql
+bin/import_mysql_dump --docker ./tmp/archive.sql.gz
+bin/import_mysql_dump --docker --recreate ./dump.sql   # пересоздать БД DB_NAME, затем импорт
+```
+
+Пароль root берётся из **`MYSQL_ROOT_PASSWORD`**. Чтобы не писать `--docker` каждый раз, в `.env.local` можно задать **`MYSQL_DUMP_VIA_DOCKER=1`**.
+
+**Без Docker** (клиент `mysql` на хосте, сервер на `127.0.0.1` и т.д.): `DB_HOST=127.0.0.1 bin/import_mysql_dump ./dump.sql` — те же **`DB_*`**, что в `database.yml`.
+
 ## Переменные окружения
 
 Подставляются из `.env.local` через `env_file` в `docker-compose.yml`.

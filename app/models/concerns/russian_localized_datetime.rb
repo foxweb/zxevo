@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Локализованная дата/время для отображения (русские названия месяцев через I18n).
-# Russian.strftime несовместим с I18n 1.x (Rails 6+): два позиционных аргумента в localize.
+# Даты через I18n.l (локаль ru — rails-i18n, названия месяцев и плюрализация).
 module RussianLocalizedDatetime
   extend ActiveSupport::Concern
 
