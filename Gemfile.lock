@@ -210,6 +210,9 @@ GEM
     rails-html-sanitizer (1.7.0)
       loofah (~> 2.25)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+    rails-i18n (6.0.0)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 7)
     rails_admin (3.3.0)
       activemodel-serializers-xml (>= 1.0)
       csv
@@ -231,8 +234,6 @@ GEM
     ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
-    russian (0.6.0)
-      i18n (>= 0.5.0)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -304,9 +305,9 @@ DEPENDENCIES
   mysql2 (~> 0.5.6)
   puma (~> 6.4)
   rails (~> 6.1.7, >= 6.1.7.10)
+  rails-i18n (~> 6.0)
   rails_admin (~> 3.3)
   rake (~> 13.2)
-  russian
   sassc-rails
   slim-rails (~> 3.7)
   sprockets-rails
