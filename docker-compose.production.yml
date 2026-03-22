@@ -14,7 +14,12 @@
 services:
   # Порт 3306 намеренно не публикуем — доступ к MySQL только из сети Compose
   db:
-    image: mysql:8.4
+    # Официальный образ 8.4 — один вариант на Oracle Linux 9 slim; тега «minimal» кроме этого нет.
+    # mysql:8.4 ≈ mysql:8.4-oraclelinux9; явный тег фиксирует базу. Экономия RAM — в command ниже, не в имени образа.
+    image: mysql:8.4-oraclelinux9
+    command:
+      - --innodb-buffer-pool-size=128M
+      - --performance_schema=OFF
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
@@ -30,10 +35,11 @@ services:
       retries: 30
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: production
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   target: production
+    image: foxweb/zxevo:latest
     restart: unless-stopped
     depends_on:
       db:
