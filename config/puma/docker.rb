@@ -14,8 +14,8 @@ state_path tmp_dir.join('puma.state').to_s
 
 bind "tcp://0.0.0.0:#{ENV.fetch('PUMA_PORT', 3000)}"
 
-threads Integer(ENV.fetch('RAILS_MAX_THREADS', 5)),
-        Integer(ENV.fetch('RAILS_MAX_THREADS', 5))
+threads Integer(ENV.fetch('RAILS_MAX_THREADS', 1)),
+        Integer(ENV.fetch('RAILS_MAX_THREADS', 1))
 
 # 0 — один процесс (только threads), экономия памяти в контейнере; >0 — cluster workers
 wc = Integer(ENV.fetch('WEB_CONCURRENCY', '0'))

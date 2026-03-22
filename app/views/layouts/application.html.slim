@@ -1,10 +1,10 @@
 doctype 5
 html lang="ru"
   head
-    meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover")
-    meta(name="theme-color" content="#333333")
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"
+    meta name="theme-color" content="#333333"
+    meta name="referrer" content="strict-origin-when-cross-origin"
     link(rel="preconnect" href="https://fonts.googleapis.com")
     link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous")
     meta(name="apple-mobile-web-app-capable" content="yes")
@@ -12,7 +12,27 @@ html lang="ru"
     meta(name="mobile-web-app-capable" content="yes")
     meta(name="google-site-verification" content="Y15DygfePu3jrAlJWq8AUz97fxV6JxYWqVebuEL1kuk")
     meta(name="yandex-verification" content="7a0cebee2102ee9e")
-    title= (content_for?(:title) ? yield(:title) + ' — ' : '') + "Сайт о компьютере ZX Evolution"
+    - site_name = "Сайт о компьютере ZX Evolution"
+    - og_title = (content_for?(:title) ? yield(:title) + ' — ' : '') + site_name
+    - og_default_description = "Компьютер-конструктор ZX Evolution — наш ответ беспомощным эмуляторам"
+    - og_description = content_for?(:og_description) ? yield(:og_description) : og_default_description
+    - og_image_rel = content_for?(:og_image) ? yield(:og_image).to_s.strip : "/images/carousel/zxevo.jpg"
+    - og_image = (og_image_rel =~ %r{\Ahttps?://}) ? og_image_rel : app_url(og_image_rel)
+    - og_url = app_url(request.fullpath)
+    title= og_title
+    meta(property="og:type" content="website")
+    meta(property="og:site_name" content=site_name)
+    meta(property="og:title" content=og_title)
+    meta(property="og:description" content=og_description)
+    meta(property="og:url" content=og_url)
+    meta(property="og:locale" content="ru_RU")
+    meta(property="og:image" content=og_image)
+    meta name="description" content=og_description
+    meta name="twitter:card" content="summary_large_image"
+    meta name="twitter:title" content=og_title
+    meta name="twitter:description" content=og_description
+    meta name="twitter:image" content=og_image
+    link rel="canonical" href=og_url
     = csrf_meta_tags
     = stylesheet_link_tag "application", media: "all"
     = auto_discovery_link_tag(:rss, rss_url, title: 'Блог ZX Evolution')
@@ -20,7 +40,7 @@ html lang="ru"
     link(href="/images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
     link(href="/images/apple-touch-icon-72x72.png"   rel="apple-touch-icon" sizes="72x72")
     link(href="/images/apple-touch-icon.png"         rel="apple-touch-icon")
-    link(href="/favicon.png" rel="shortcut icon")
+    link rel="icon" href="/favicon.png" type="image/png"
   body
     a.skip-link href="#main-content" К основному содержимому
     .container#root

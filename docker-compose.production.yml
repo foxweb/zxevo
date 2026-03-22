@@ -49,7 +49,7 @@ services:
       DB_NAME: ${DB_NAME:-zxevo_production}
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_SERVE_STATIC_FILES: "true"
-      RAILS_MAX_THREADS: ${RAILS_MAX_THREADS:-5}
+      RAILS_MAX_THREADS: ${RAILS_MAX_THREADS:-1}
       WEB_CONCURRENCY: ${WEB_CONCURRENCY:-0}
       PUMA_PORT: ${PUMA_PORT:-3000}
       # true — db:migrate при каждом старте; для отдельного job миграций: false

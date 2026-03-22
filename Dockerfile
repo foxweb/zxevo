@@ -93,7 +93,9 @@ ENV APP_HOME=/app \
     BUNDLE_WITHOUT="development:test" \
     RAILS_ENV=production \
     RAILS_LOG_TO_STDOUT=true \
-    RAILS_SERVE_STATIC_FILES=true
+    RAILS_SERVE_STATIC_FILES=true \
+    WEB_CONCURRENCY=0 \
+    RAILS_MAX_THREADS=1
 
 WORKDIR $APP_HOME
 
