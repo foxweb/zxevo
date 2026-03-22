@@ -26,6 +26,8 @@ gem 'turbolinks', '~> 5.2'
 # bootstrap and css stuff
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'execjs'
+# V8 для ExecJS (terser при assets:precompile) без системного Node.js
+gem 'mini_racer', '~> 0.16'
 gem 'jquery-rails', '~> 4.6'
 gem 'sassc-rails'
 gem 'terser', '~> 1.2'
